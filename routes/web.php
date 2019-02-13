@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/', function () {return redirect('/login');});
 Route::get('login', ['as' => 'login','uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('login', ['as' => '','uses' => 'Auth\LoginController@login']);
 Route::post('logout', ['as' => 'logout','uses' => 'Auth\LoginController@logout']);
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'HomeController@index');
+    Route::get('/peserta', 'PesertaController@LihatPeserta');
+});
