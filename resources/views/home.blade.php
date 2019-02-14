@@ -25,7 +25,7 @@
             <div class="col-md-4">
               <div class="c-state-card c-state-card--success">
                 <h4 class="c-state-card__title">Section</h4>
-                <span class="c-state-card__number">4</span>
+              <span class="c-state-card__number">{{ $data['section'] }}</span>
                 <div class="c-state-card__actions dropdown"> 
                   <span class="dropdown-toggle" id="dropdownMenuState2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                     <i class="feather icon-more-vertical"></i>

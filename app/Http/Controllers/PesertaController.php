@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 class PesertaController extends Controller
 {
     public function LihatPeserta(){
-        return response()->json(['error' => 0,'message' => Peserta::all() ], 200);
+        $data = [
+            'title' => 'Peserta',
+            'peserta' => Peserta::all()
+        ];
+        return view('peserta')->with(compact('data'));
     }
 
     public function DaftarPeserta(Request $request){

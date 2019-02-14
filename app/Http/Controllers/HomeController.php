@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Section;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = 'Home';
-        return view('home')->with(compact('title'));
+        $data = [
+            'title' => 'Home',
+            'section' => Section::all()->count()
+        ];
+        return view('home')->with(compact('data'));
     }
 }

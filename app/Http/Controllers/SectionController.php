@@ -9,7 +9,12 @@ use DB;
 class SectionController extends Controller
 {
     public function LihatSection(){
-        return response()->json(['error' => 0,'message' => Section::all() ], 200);
+        // $title = 'Section';
+        $data = [
+            'title' => 'Section',
+            'section' => Section::all()
+        ];
+        return view('section')->with(compact('data'));
     }
     public function HapusSection(Request $request){
         Section::find($request->id)->delete();

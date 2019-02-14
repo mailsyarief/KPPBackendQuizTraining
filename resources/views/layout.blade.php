@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ $title }}</title>
+    <title>{{ $data['title'] }}</title>
     <meta name="description" content="Neat">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -41,7 +41,7 @@
                 </a>
               </li>
               <li>
-                <a class="c-sidebar__link" href="pricing.html">
+              <a class="c-sidebar__link" href="{{ url('/section') }}">
                   <i class="c-sidebar__icon feather icon-tag"></i>Section
                 </a>
               </li>
@@ -72,7 +72,7 @@
           <button class="c-sidebar-toggle js-sidebar-toggle">
             <i class="feather icon-align-left"></i>
           </button>
-          <h2 class="c-navbar__title">{{ $title }}</h2>
+          <h2 class="c-navbar__title">{{ $data['title'] }}</h2>
         </header>
         @yield('content')
       </main>

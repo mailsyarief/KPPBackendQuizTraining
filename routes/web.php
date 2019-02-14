@@ -19,4 +19,5 @@ Route::post('logout', ['as' => 'logout','uses' => 'Auth\LoginController@logout']
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/peserta', 'PesertaController@LihatPeserta');
+    Route::get('/section', 'SectionController@LihatSection');
 });
