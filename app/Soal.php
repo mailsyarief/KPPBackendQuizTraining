@@ -5,6 +5,7 @@ namespace App;
 use App\Paket;
 use App\JawabanMencocokan;
 use App\JawabanPilihanGanda;
+use App\JawabanBenarSalah;
 use Illuminate\Database\Eloquent\Model;
 
 class Soal extends Model
@@ -14,16 +15,21 @@ class Soal extends Model
 
     public function Paket()
     {
-        return $this->hasMany(Paket::class);
+        return $this->belongsTo(Paket::class);
     }
 
     public function JawabanMencocokan()
     {
-        return $this->belongsTo(JawabanMencocokan::class);
+        return $this->hasMany(JawabanMencocokan::class);
     }
 
     public function JawabanPilihanGanda()
     {
-        return $this->belongsTo(JawabanPilihanGanda::class);
+        return $this->hasMany(JawabanPilihanGanda::class);
+    }
+
+    public function JawabanBenarSalah()
+    {
+        return $this->hasMany(JawabanBenarSalah::class);
     }
 }

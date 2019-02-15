@@ -1,8 +1,6 @@
 <?php
 
 namespace App;
-
-use App\Peserta;
 use App\JawabanMencocokan;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +11,6 @@ class PilihanJawabanMencocokan extends Model
 
     public function JawabanMencocokan()
     {
-        return $this->belongsTo(JawabanMencocokan::class);
+        return $this->hasOne(JawabanMencocokan::class);
     }
 }

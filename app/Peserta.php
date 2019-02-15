@@ -15,7 +15,7 @@ class Peserta extends Model
 
     public function Paket()
     {
-        return $this->hasMany(Paket::class);
+        return $this->belongsTo(Paket::class);
     }
 
     public function JawabanMencocokan()

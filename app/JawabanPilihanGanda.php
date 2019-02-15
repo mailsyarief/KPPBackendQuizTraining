@@ -13,11 +13,13 @@ class JawabanPilihanGanda extends Model
 
     public function Soal()
     {
-        return $this->hasMany(Soal::class);
+        return $this->belongsTo(Soal::class);
     }
 
     public function Peserta()
     {
-        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_pilihan_ganda','jawaban_piliham_ganda_id', 'peserta_id')->withPivot('jawaban_peserta')->withTimeStamps();
+        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_pilihan_ganda','jawaban_piliham_ganda_id', 'peserta_id')
+                    ->withPivot('jawaban_peserta')
+                    ->withTimeStamps();
     }
 }

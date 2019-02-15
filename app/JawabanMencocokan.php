@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Peserta;
 use App\PilihanJawabanMencocokan;
 use App\Soal;
 use Illuminate\Database\Eloquent\Model;
@@ -13,16 +14,18 @@ class JawabanMencocokan extends Model
 
     public function Soal()
     {
-        return $this->hasMany(Soal::class);
+        return $this->belongsTo(Soal::class);
     }
 
     public function PilihanJawabanMencocokan()
     {
-        return $this->hasOne(PilihanJawabanMencocokan::class);
+        return $this->belongsTo(PilihanJawabanMencocokan::class);
     }
 
     public function Peserta()
     {
-        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_mencocokan','jawaban_mencocokan_id', 'peserta_id')->withPivot('jawaban_peserta')->withTimeStamps();
+        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_mencocokan','jawaban_mencocokan_id', 'peserta_id')
+                    ->withPivot('jawaban_peserta')
+                    ->withTimeStamps();
     }
 }

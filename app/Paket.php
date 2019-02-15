@@ -13,11 +13,11 @@ class Paket extends Model
 
     public function Peserta()
     {
-        return $this->belongsTo(Peserta::class);
+        return $this->hasMany(Peserta::class);
     }
 
     public function Soal()
     {
-        return $this->belongsTo(Soal::class);
+        return $this->hasMany(Soal::class);
     }
 }
