@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class JawabanMencocokan extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('jawaban_mencocokan', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->string('jawaban');
+
+            $table->integer('pilihan_jawaban_mencocokan_id')->unsigned()->index()->nullable();
+            $table->foreign('pilihan_jawaban_mencocokan_id')->references('id')->on('pilihan_jawaban_mencocokan');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('jawaban_mencocokan');
+    }
+}
