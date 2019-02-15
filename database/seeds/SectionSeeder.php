@@ -14,22 +14,14 @@ class SectionSeeder extends Seeder
     {
         $section = New Section;
         $section->nama = 'wheel';
-        $section->keterangan = '-';
         $section->save();
 
         $section = New Section;
         $section->nama = 'track';
-        $section->keterangan = '-';
         $section->save();
 
         $section = New Section;
-        $section->nama = 'sse';
-        $section->keterangan = '-';
-        $section->save();
-
-        $section = New Section;
-        $section->nama = 'hauling';
-        $section->keterangan = '-';
+        $section->nama = 'sse/hauling';
         $section->save();
     }
 }

@@ -19,6 +19,7 @@ class Peserta extends Migration
             $table->string('nrp');
             $table->integer('nilai')->nullable();
             $table->string('token')->nullable();
+            $table->string('section');
             $table->boolean('isRemedial')->default(0);
             $table->integer('nilaiRemedial')->nullable();
             $table->timestamps();

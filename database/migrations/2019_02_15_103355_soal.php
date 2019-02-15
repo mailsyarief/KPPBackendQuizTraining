@@ -21,6 +21,9 @@ class Soal extends Migration
 
             $table->integer('paket_id')->unsigned()->index()->nullable();
             $table->foreign('paket_id')->references('id')->on('paket');
+    
+            $table->integer('section_id')->unsigned()->index()->nullable();
+            $table->foreign('section_id')->references('id')->on('section');
             
             $table->timestamps();
         });

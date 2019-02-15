@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Paket extends Model
 {
     protected $table = 'paket';
-    protected $fillable = ['nama','keterangan','section'];
+    protected $fillable = ['nama','keterangan','section_id'];
 
     public function Peserta()
     {
@@ -19,5 +19,10 @@ class Paket extends Model
     public function Soal()
     {
         return $this->hasMany(Soal::class);
+    }
+
+    public function Section()
+    {
+        return $this->belongsTo(Paket::class);
     }
 }

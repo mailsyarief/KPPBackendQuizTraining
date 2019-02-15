@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/LihatPeserta','PesertaController@LihatPeserta');
 Route::post('/DaftarPeserta','PesertaController@DaftarPeserta');
+Route::post('/CekPaketPeserta','PesertaController@CekPaketPeserta');
