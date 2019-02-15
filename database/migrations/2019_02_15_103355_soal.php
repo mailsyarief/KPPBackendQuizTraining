@@ -15,6 +15,7 @@ class Soal extends Migration
     {
         Schema::create('soal', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('nomor_soal');
             $table->string('soal_gambar')->nullable();
             $table->string('soal');
             $table->string('tipe_soal');

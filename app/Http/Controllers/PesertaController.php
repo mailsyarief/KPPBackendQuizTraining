@@ -17,7 +17,7 @@ class PesertaController extends Controller
     }
 
     public function DaftarPeserta(Request $request){
-        $token = md5(uniqid($request->nrp, true));
+        $token = md5(uniqid(rand(), true));
         $section = Section::where('nama', $request->section)->first();
         if($section == NULL){
             return response()->json(['error' => 0,'message' => 'section tidak ditemukan'], 200);
@@ -47,5 +47,6 @@ class PesertaController extends Controller
         if($cekPaket->soal_id == NULL){
             return response()->json(['error' => 0,'message' => 'soal belum tersedia'], 200);  
         }
+        return response()->json(['error' => 0,'message' => 'soal sudah tersedia'], 200);      
     }
 }

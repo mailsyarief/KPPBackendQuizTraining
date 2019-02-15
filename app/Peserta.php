@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Peserta extends Model
 {
     protected $table = 'peserta';
-    protected $fillable = ['nama','nrp','nilai','token','isRemedial','nilaiRemedial','paket_id', 'section_id'];
+    protected $fillable = ['nama','nrp','nilai','token','isRemedial','nilaiRemedial','paket_id', 'section_id', 'soal_terakhir', 'nomor_soal'];
 
     public function Paket()
     {

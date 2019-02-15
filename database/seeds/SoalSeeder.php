@@ -17,6 +17,7 @@ class SoalSeeder extends Seeder
     public function run()
     {
         $soal = New Soal;
+        $soal->nomor_soal = 1;
         $soal->soal_gambar = null;
         $soal->soal = 'Arti code 200 pada PC 200-8 adalah……';
         $soal->tipe_soal = 'PILIHANGANDA';
@@ -32,6 +33,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 2;
         $soal->soal_gambar = null;
         $soal->soal = 'Engine model yang digunakan pada PC 200-8 adalah…….';
         $soal->tipe_soal = 'PILIHANGANDA';
@@ -47,6 +49,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 3;
         $soal->soal_gambar = null;
         $soal->soal = 'Tipe cylinder yang digunakan pada engine PC 200-8 adalah…….';
         $soal->tipe_soal = 'PILIHANGANDA';
@@ -62,6 +65,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
         
         $soal = New Soal;
+        $soal->nomor_soal = 4;
         $soal->soal_gambar = null;
         $soal->soal = 'Fuel system pada engine PC 200-8 menggunakan type……';
         $soal->tipe_soal = 'PILIHANGANDA';
@@ -77,6 +81,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();        
 
         $soal = New Soal;
+        $soal->nomor_soal = 5;
         $soal->soal_gambar = null;
         $soal->soal = 'Micron dari main fuel filter pada PC 200-8 adalah…..';
         $soal->tipe_soal = 'PILIHANGANDA';
@@ -154,6 +159,7 @@ class SoalSeeder extends Seeder
 
 
         $soal = New Soal;
+        $soal->nomor_soal = 6;
         $soal->soal_gambar = null;
         $soal->soal = 'Micron elemen fuel pre filter.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -165,6 +171,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 7;
         $soal->soal_gambar = null;
         $soal->soal = 'Tipe feed pump PC 200-8.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -176,6 +183,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 8;
         $soal->soal_gambar = null;
         $soal->soal = 'Membatasi tekanan pada intake manifold.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -187,6 +195,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 9;
         $soal->soal_gambar = null;
         $soal->soal = 'Membatasi tekanan pada sistem ketika attachment netral.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -198,6 +207,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 10;
         $soal->soal_gambar = null;
         $soal->soal = 'Yang diubah adjusmentnya ketika power max ON.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -209,6 +219,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 11;
         $soal->soal_gambar = null;
         $soal->soal = 'Meminimalkan sudut pompa saat netral.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -220,6 +231,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 12;
         $soal->soal_gambar = null;
         $soal->soal = 'Meminimalkan sudut pompa saat mendekati relief.';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -231,6 +243,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 13;
         $soal->soal_gambar = null;
         $soal->soal = 'Output LS EPC';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -242,6 +255,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
         
         $soal = New Soal;
+        $soal->nomor_soal = 14;
         $soal->soal_gambar = null;
         $soal->soal = 'Power max akan reset otomstis setelah penggunaan selama….';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -253,6 +267,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 15;
         $soal->soal_gambar = null;
         $soal->soal = 'Setting safety valve travel motor';
         $soal->tipe_soal = 'MENCOCOKAN';
@@ -264,6 +279,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 16;
         $soal->soal_gambar = null;
         $soal->soal = 'Pompa yang digunakan pada PC 200-8 adalah HPV 95 + 95, ini berarti pompa tersebut merupakan pompa tandem dengan displacement 95 cc per revolution pada masing-masing pompa.';
         $soal->tipe_soal = 'BENARSALAH';
@@ -275,6 +291,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 17;
         $soal->soal_gambar = null;
         $soal->soal = 'KMF125ABE-6 adalah tipe motor yang digunakan pada travel motor PC 200-8.';
         $soal->tipe_soal = 'BENARSALAH';
@@ -286,6 +303,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 18;
         $soal->soal_gambar = null;
         $soal->soal = 'Spesific capacity hydraulic tang PC 200-8 adalah 135 liter.';
         $soal->tipe_soal = 'BENARSALAH';
@@ -297,6 +315,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 19;
         $soal->soal_gambar = null;
         $soal->soal = 'Sistem hydraulic pada PC 200-8 adalah Electronic CLSS.';
         $soal->tipe_soal = 'BENARSALAH';
@@ -308,6 +327,7 @@ class SoalSeeder extends Seeder
         $pilgan->save();
 
         $soal = New Soal;
+        $soal->nomor_soal = 20;
         $soal->soal_gambar = null;
         $soal->soal = 'Swing machinary PC 200-8 menggunakan tipe planetary gear 2 kali reduksi.';
         $soal->tipe_soal = 'BENARSALAH';

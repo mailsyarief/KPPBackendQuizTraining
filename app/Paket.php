@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Paket extends Model
 {
     protected $table = 'paket';
-    protected $fillable = ['nama','keterangan','section_id'];
+    protected $fillable = ['nama','keterangan','section_id', 'jumlah_soal'];
 
     public function Peserta()
     {
