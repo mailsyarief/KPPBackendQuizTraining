@@ -4,6 +4,7 @@ namespace App;
 
 use App\Soal;
 use App\Peserta;
+use App\PilihanJawabanMencocokan;
 use Illuminate\Database\Eloquent\Model;
 
 class Paket extends Model
@@ -24,5 +25,10 @@ class Paket extends Model
     public function Section()
     {
         return $this->belongsTo(Paket::class);
+    }
+
+    public function PilihanJawabanMencocokan()
+    {
+        return $this->hasMany(PilihanJawabanMencocokan::class);
     }
 }

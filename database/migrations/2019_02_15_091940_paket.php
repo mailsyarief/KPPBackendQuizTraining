@@ -17,6 +17,10 @@ class Paket extends Migration
             $table->increments('id');
             $table->string('nama');
             $table->string('keterangan')->nullable();
+
+            $table->integer('section_id')->unsigned()->index()->nullable();
+            $table->foreign('section_id')->references('id')->on('section');
+    
             $table->timestamps();
         });
     }

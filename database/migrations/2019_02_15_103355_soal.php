@@ -17,14 +17,11 @@ class Soal extends Migration
             $table->increments('id');
             $table->string('soal_gambar')->nullable();
             $table->string('soal');
-            $table->string('tipe soal');
+            $table->string('tipe_soal');
 
             $table->integer('paket_id')->unsigned()->index()->nullable();
             $table->foreign('paket_id')->references('id')->on('paket');
-    
-            $table->integer('section_id')->unsigned()->index()->nullable();
-            $table->foreign('section_id')->references('id')->on('section');
-            
+        
             $table->timestamps();
         });
     }

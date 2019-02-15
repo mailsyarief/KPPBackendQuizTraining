@@ -15,11 +15,13 @@ class JawabanMencocokan extends Migration
     {
         Schema::create('jawaban_mencocokan', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('jawaban');
 
             $table->integer('pilihan_jawaban_mencocokan_id')->unsigned()->index()->nullable();
             $table->foreign('pilihan_jawaban_mencocokan_id')->references('id')->on('pilihan_jawaban_mencocokan');
+
+            $table->integer('soal_id')->unsigned()->index()->nullable();
+            $table->foreign('soal_id')->references('id')->on('soal');
 
             $table->timestamps();
         });
