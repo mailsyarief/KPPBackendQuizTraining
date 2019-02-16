@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/LihatPeserta','PesertaController@LihatPeserta');
 Route::post('/DaftarPeserta','PesertaController@DaftarPeserta');
 Route::post('/CekPaketPeserta','PesertaController@CekPaketPeserta');
-Route::post('/RequestSoal','SoalController@RequestSoal');
-Route::post('/SubmitJawaban','SoalController@SubmitJawaban');
+Route::post('/RequestSoal','PesertaController@RequestSoal');
+Route::post('/SubmitJawaban','PesertaController@SubmitJawaban');
