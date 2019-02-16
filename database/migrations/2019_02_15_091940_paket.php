@@ -23,7 +23,7 @@ class Paket extends Migration
     
             $table->timestamps();
 
-            $table->integer('jumlah_soal')->nullable();
+            $table->integer('jumlah_soal')->default(0);
         });
     }
 

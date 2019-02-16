@@ -28,7 +28,7 @@ class SoalSeeder extends Seeder
         $pilgan->pilihan_b = 'Berat unit siap operasi 20 ton';
         $pilgan->pilihan_c = 'Kapasitas bucket max 2 ton';
         $pilgan->pilihan_d = 'Kemampuan pengangkatan material 20 ton';
-        $pilgan->jawaban = 'pilihan_b';
+        $pilgan->jawaban = 'Berat unit siap operasi 20 ton';
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -44,7 +44,7 @@ class SoalSeeder extends Seeder
         $pilgan->pilihan_b = 'SAA6D107E-3';
         $pilgan->pilihan_c = 'SAA6D114E-2';
         $pilgan->pilihan_d = 'SAA6D107E-1';
-        $pilgan->jawaban = 'pilihan_d';
+        $pilgan->jawaban = 'SAA6D107E-1';
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -60,7 +60,7 @@ class SoalSeeder extends Seeder
         $pilgan->pilihan_b = 'Over bore';
         $pilgan->pilihan_c = 'Over lap';
         $pilgan->pilihan_d = 'Square';
-        $pilgan->jawaban = 'pilihan_a';
+        $pilgan->jawaban = 'Over stroke';
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
         
@@ -76,7 +76,7 @@ class SoalSeeder extends Seeder
         $pilgan->pilihan_b = 'Denso HPCR';
         $pilgan->pilihan_c = 'Bosch CRI';
         $pilgan->pilihan_d = 'Bosch HPCR';
-        $pilgan->jawaban = 'pilihan_d';
+        $pilgan->jawaban = 'Bosch HPCR';
         $pilgan->soal_id = $soal->id;
         $pilgan->save();        
 
@@ -92,7 +92,7 @@ class SoalSeeder extends Seeder
         $pilgan->pilihan_b = '5µ';
         $pilgan->pilihan_c = '2µ';
         $pilgan->pilihan_d = '4µ';
-        $pilgan->jawaban = 'pilihan_d';
+        $pilgan->jawaban = '4µ';
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 

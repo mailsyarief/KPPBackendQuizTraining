@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Soal extends Model
 {
     protected $table = 'soal';
-    protected $fillable = ['soal_gambar','soal','tipe_soal','paket_id'];
+    protected $fillable = ['soal_gambar','soal','tipe_soal','paket_id', 'nomor_soal'];
 
     public function Paket()
     {

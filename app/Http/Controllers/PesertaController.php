@@ -47,6 +47,6 @@ class PesertaController extends Controller
         if($cekPaket->soal_id == NULL){
             return response()->json(['error' => 0,'message' => 'soal belum tersedia'], 200);  
         }
-        return response()->json(['error' => 0,'message' => 'soal sudah tersedia'], 200);      
+        return response()->json(['error' => 0,'message' => 'soal sudah tersedia'], 200);    
     }
 }

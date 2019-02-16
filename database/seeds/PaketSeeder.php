@@ -17,6 +17,7 @@ class PaketSeeder extends Seeder
         $paket->keterangan = '-';
         $paket->durasi_per_soal = 2;
         $paket->section_id = 2; //track
+        $paket->jumlah_soal = 20;
         $paket->save();
 
         $paket = new Paket;

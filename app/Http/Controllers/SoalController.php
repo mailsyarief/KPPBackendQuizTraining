@@ -5,18 +5,38 @@ namespace App\Http\Controllers;
 use App\Peserta;
 use App\Soal;
 use App\Paket;
+use App\PilihanJawabanMencocokan;
+use App\JawabanPilihanGanda;
+use App\JawabanMencocokan;
+use App\JawabanBenarSalah;
 use Illuminate\Http\Request;
 
 class SoalController extends Controller
 {
-    public function Soal(Request $request)
+    public function RequestSoal(Request $request)
     {
-        //contoh
-        // $pengiriman = DataPaket::whereIn('no_resi', function($query) use($id_kurir){
-        //     $query->select('no_resi')->from('distribusi_dummy')->where('status','DELIVERED')->where('id_kurir', $id_kurir);
-        // })->orderBy('waktu_penerima','desc')->get();
-        $peserta = Peserta::where('token', $request->token)->first()->Paket->id;
-        $soal = Soal::where('paket_id', $peserta)->get();
-        return response()->json(['error' => 0,'message' => $soal], 200);
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $nomor = $peserta->soal_terakhir + 1;
+        $soal = Soal::where('paket_id', $peserta->Paket->id)->where('nomor_soal', $nomor)->first();
+        $message = array('soal' => $soal);
+
+        if($soal->tipe_soal == 'PILIHANGANDA'){
+            $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
+            $message['jawaban'] = $pilihanganda;
+        }
+        else if($soal->tipe_soal == 'MENCOCOKAN'){
+            $mencocokan = JawabanMencocokan::where('soal_id', $soal->id)->first();
+            $pilihanjawaban = PilihanJawabanMencocokan::where('paket_id', $peserta->Paket->id)->get();
+            $message['jawaban'] = $mencocokan;
+            $message ['pilihanjawaban'] = $pilihanjawaban;
+        }
+        else if($soal->tipe_soal == 'BENARSALAH'){
+            $benarsalah = JawabanBenarSalah::where('soal_id', $soal->id)->first();
+            $message['jawaban'] = $benarsalah;
+        }
+        return response()->json(['error' => 0,'message' => $message], 200);
     }
 }
