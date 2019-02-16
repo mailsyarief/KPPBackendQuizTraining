@@ -17,8 +17,8 @@ class JawabanPesertaMencocokan extends Migration
             $table->increments('id');
             $table->string('jawaban_peserta');
 
-            $table->integer('jawaban_mencocokan_id')->unsigned()->index()->nullable();
-            $table->foreign('jawaban_mencocokan_id')->references('id')->on('jawaban_mencocokan');
+            $table->integer('soal_id')->unsigned()->index()->nullable();
+            $table->foreign('soal_id')->references('id')->on('soal');
 
             $table->integer('peserta_id')->unsigned()->index()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta');

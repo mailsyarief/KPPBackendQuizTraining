@@ -17,8 +17,8 @@ class JawabanPesertaPilihanGanda extends Migration
             $table->increments('id');
             $table->string('jawaban_peserta');
 
-            $table->integer('jawaban_pilihan_ganda_id')->unsigned()->index()->nullable();
-            $table->foreign('jawaban_pilihan_ganda_id')->references('id')->on('jawaban_pilihan_ganda');
+            $table->integer('soal_id')->unsigned()->index()->nullable();
+            $table->foreign('soal_id')->references('id')->on('soal');
 
             $table->integer('peserta_id')->unsigned()->index()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta');

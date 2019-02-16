@@ -22,7 +22,7 @@ class Peserta extends Migration
             $table->string('section');
             $table->boolean('isRemedial')->default(0);
             $table->integer('nilaiRemedial')->nullable();
-            $table->integer('soal_terakhir')->default(0);
+            $table->integer('soal_terakhir')->default(1);
             $table->timestamps();
 
             $table->integer('paket_id')->unsigned()->index()->nullable();

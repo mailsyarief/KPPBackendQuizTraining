@@ -17,8 +17,8 @@ class JawabanPesertaBenarSalah extends Migration
             $table->increments('id');
             $table->boolean('jawaban_peserta');
 
-            $table->integer('jawaban_benar_salah_id')->unsigned()->index()->nullable();
-            $table->foreign('jawaban_benar_salah_id')->references('id')->on('jawaban_benar_salah');
+            $table->integer('soal_id')->unsigned()->index()->nullable();
+            $table->foreign('soal_id')->references('id')->on('soal');
 
             $table->integer('peserta_id')->unsigned()->index()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta');

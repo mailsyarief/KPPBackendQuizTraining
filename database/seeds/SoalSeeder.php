@@ -166,7 +166,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = '10µ';
+        $pilgan->pilihan_jawaban_mencocokan_id = 5;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -178,7 +178,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'External gear pump';
+        $pilgan->pilihan_jawaban_mencocokan_id = 4;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -190,7 +190,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'Waste gate';
+        $pilgan->pilihan_jawaban_mencocokan_id = 9;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -202,7 +202,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'Unload valve';
+        $pilgan->pilihan_jawaban_mencocokan_id = 13;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -214,7 +214,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'Relief valve';
+        $pilgan->pilihan_jawaban_mencocokan_id = 6;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -226,8 +226,8 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'LS valve';
         $pilgan->soal_id = $soal->id;
+        $pilgan->pilihan_jawaban_mencocokan_id = 2;
         $pilgan->save();
 
         $soal = New Soal;
@@ -238,7 +238,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'PC valve';
+        $pilgan->pilihan_jawaban_mencocokan_id = 3;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 
@@ -250,7 +250,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = 'PSIG';
+        $pilgan->pilihan_jawaban_mencocokan_id = 7;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
         
@@ -262,8 +262,8 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = '8.5 detik';
         $pilgan->soal_id = $soal->id;
+        $pilgan->pilihan_jawaban_mencocokan_id = 1;
         $pilgan->save();
 
         $soal = New Soal;
@@ -274,7 +274,7 @@ class SoalSeeder extends Seeder
         $soal->paket_id = 1; //PK PC 200
         $soal->save();
         $pilgan = New JawabanMencocokan;
-        $pilgan->jawaban = '280 Kg/cm2';
+        $pilgan->pilihan_jawaban_mencocokan_id = 14;
         $pilgan->soal_id = $soal->id;
         $pilgan->save();
 

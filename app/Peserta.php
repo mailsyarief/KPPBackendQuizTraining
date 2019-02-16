@@ -20,21 +20,21 @@ class Peserta extends Model
 
     public function JawabanMencocokan()
     {
-        return $this->belongsToMany(JawabanMencocokan::class ,'jawaban_peserta_mencocokan','jawaban_mencocokan_id', 'peserta_id')
+        return $this->belongsToMany(Soal::class ,'jawaban_peserta_mencocokan','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta')
                     ->withTimeStamps();
     }
 
     public function JawabanPilihanGanda()
     {
-        return $this->belongsToMany(JawabanPilihanGanda::class ,'jawaban_peserta_pilihan_ganda','jawaban_pilihan_ganda_id', 'peserta_id')
+        return $this->belongsToMany(Soal::class ,'jawaban_peserta_pilihan_ganda','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta')
                     ->withTimeStamps();
     }
 
     public function JawabanBenarSalah()
     {
-        return $this->belongsToMany(JawabanBenarSalah::class ,'jawaban_peserta_benar_salah','jawaban_benar_salah_id', 'peserta_id')
+        return $this->belongsToMany(Soal::class ,'jawaban_peserta_benar_salah','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta')
                     ->withTimeStamps();
     }

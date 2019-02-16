@@ -21,3 +21,4 @@ Route::get('/LihatPeserta','PesertaController@LihatPeserta');
 Route::post('/DaftarPeserta','PesertaController@DaftarPeserta');
 Route::post('/CekPaketPeserta','PesertaController@CekPaketPeserta');
 Route::post('/RequestSoal','SoalController@RequestSoal');
+Route::post('/SubmitJawaban','SoalController@SubmitJawaban');

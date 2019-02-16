@@ -19,9 +19,10 @@ class SoalController extends Controller
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        $nomor = $peserta->soal_terakhir + 1;
+        $nomor = $peserta->soal_terakhir;
+        $paket = Paket::find($peserta->Paket->id)->first();
         $soal = Soal::where('paket_id', $peserta->Paket->id)->where('nomor_soal', $nomor)->first();
-        $message = array('soal' => $soal);
+        $message = array('paket' => $paket ,'soal' => $soal);
 
         if($soal->tipe_soal == 'PILIHANGANDA'){
             $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
@@ -38,5 +39,26 @@ class SoalController extends Controller
             $message['jawaban'] = $benarsalah;
         }
         return response()->json(['error' => 0,'message' => $message], 200);
+    }
+
+    public function SubmitJawaban(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $soal = Soal::where('paket_id', $peserta->paket_id)->where('nomor_soal', $peserta->soal_terakhir)->first();
+        if($soal->tipe_soal == 'PILIHANGANDA'){
+            $soal->JawabanPesertaPilihanGanda()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+        }
+        else if($soal->tipe_soal == 'MENCOCOKAN'){
+            $soal->JawabanPesertaMencocokan()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+        }
+        else if($soal->tipe_soal == 'BENARSALAH'){
+            $soal->JawabanPesertaBenarSalah()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+        }
+        $nomor = $peserta->soal_terakhir + 1;
+        $peserta->update(['soal_terakhir' => $nomor]);
+        return response()->json(['error' => 0,'message' => 'sukses input'], 200);
     }
 }
