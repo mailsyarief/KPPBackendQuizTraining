@@ -23,7 +23,9 @@
               <th class="c-table__cell c-table__cell--head">Nama</th>
               <th class="c-table__cell c-table__cell--head">NRP</th>
               <th class="c-table__cell c-table__cell--head">Section</th>
+              <th class="c-table__cell c-table__cell--head">Paket</th>
               <th class="c-table__cell c-table__cell--head">Nilai</th>
+              <th class="c-table__cell c-table__cell--head">Nilai Remedial</th>
               <th class="c-table__cell c-table__cell--head">Actions</th>
             </tr>
           </thead>
@@ -39,7 +41,27 @@
               </td>
             <td class="c-table__cell">{{ $peserta->nrp }}</td>
             <th class="c-table__cell">{{ $peserta->section }}</th>
-            <th class="c-table__cell">{{ $peserta->nilai }}</th>
+            <th class="c-table__cell">
+              @if($peserta->Paket->Nama == NULL)
+                <a class="c-badge c-badge--small c-badge--danger" href="#">Belum Ditentukan</a>
+              @else
+              <a class="c-badge c-badge--small c-badge--info" href="#">{{$peserta->Paket->nama}}</a>
+              @endif
+            </th>
+            <th class="c-table__cell">
+              @if($peserta->Nilai == NULL)
+                <a class="c-badge c-badge--small c-badge--danger">Belum Selesai</a>
+              @else
+                <a class="c-badge c-badge--small c-badge--info">{{$peserta->Nilai}}</a>
+              @endif
+            </th>
+            <th class="c-table__cell">
+              @if($peserta->isRemedial)
+                <a class="c-badge c-badge--small c-badge--info">{{$peserta->nilaiRemedial}}</a>
+              @else
+                <a class="c-badge c-badge--small c-badge--danger">Tidak Remedial</a>
+              @endif
+            </th>
               <td class="c-table__cell">
                 <div class="c-dropdown dropdown">
                   <a href="#" class="c-btn c-btn--info has-icon dropdown-toggle" id="dropdownMenuTable1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,8 +69,7 @@
                   </a>
 
                   <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuTable1">
-                    <a class="c-dropdown__item dropdown-item" href="#">Hapus</a>
-                    <a class="c-dropdown__item dropdown-item" href="#">Ubah</a>
+                  <a class="c-dropdown__item dropdown-item" href="{{url('peserta/'.$peserta->id)}}">Lihat Detil</a>
                   </div>
                 </div>
               </td>
@@ -60,5 +81,6 @@
     </div>
     @endif
   </div>
+</div>
 </div>
 @endsection

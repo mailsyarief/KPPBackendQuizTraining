@@ -16,6 +16,7 @@ class JawabanPesertaBenarSalah extends Migration
         Schema::create('jawaban_peserta_benar_salah', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('jawaban_peserta');
+            $table->boolean('isTrue');
 
             $table->integer('soal_id')->unsigned()->index()->nullable();
             $table->foreign('soal_id')->references('id')->on('soal');

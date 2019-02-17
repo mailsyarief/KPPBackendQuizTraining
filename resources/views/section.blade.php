@@ -47,6 +47,7 @@
                   </a>
 
                   <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuTable1">
+                    <a class="c-dropdown__item dropdown-item" href="#">Lihat Paket Soal</a>
                     <a class="c-dropdown__item dropdown-item" href="#">Hapus</a>
                     <a class="c-dropdown__item dropdown-item" href="#">Ubah</a>
                   </div>

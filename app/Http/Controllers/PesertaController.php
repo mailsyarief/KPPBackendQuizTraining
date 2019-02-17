@@ -21,6 +21,15 @@ class PesertaController extends Controller
         return view('peserta')->with(compact('data'));
     }
 
+    public function DetilPeserta($id){
+        $peserta = Peserta::find($id)->first();
+        $data = [
+            'title' => 'Detil Peserta ',
+            'peserta' => $peserta
+        ];
+        return view('detilpeserta')->with(compact('data'));
+    }
+
     public function DaftarPeserta(Request $request){
         $token = md5(uniqid(rand(), true));
         $section = Section::where('nama', $request->section)->first();
@@ -89,17 +98,45 @@ class PesertaController extends Controller
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
         $soal = Soal::where('paket_id', $peserta->paket_id)->where('nomor_soal', $peserta->soal_terakhir)->first();
+        
+        if($request->jawaban != $request->jawaban_peserta){
+            $isTrue = 0;
+        }
+        else{
+            $isTrue = 1;
+        }
+
         if($soal->tipe_soal == 'PILIHANGANDA'){
-            $soal->JawabanPesertaPilihanGanda()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+            $soal->JawabanPesertaPilihanGanda()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
         }
         else if($soal->tipe_soal == 'MENCOCOKAN'){
-            $soal->JawabanPesertaMencocokan()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+            $soal->JawabanPesertaMencocokan()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
         }
         else if($soal->tipe_soal == 'BENARSALAH'){
-            $soal->JawabanPesertaBenarSalah()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta]);
+            $soal->JawabanPesertaBenarSalah()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
         }
         $nomor = $peserta->soal_terakhir + 1;
         $peserta->update(['soal_terakhir' => $nomor]);
         return response()->json(['error' => 0,'message' => 'sukses input'], 200);
+    }
+
+    public function SelesaiUjian(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        // verifikasi sudah diisi semua jawaban atau belum
+        // if($peserta->soal_terakhir != $peseta->Paket()->jumlah_soal){
+        //     return response()->json(['error' => 1,'message' => 'soal belum dijawab semua'], 200);  
+        // }
+        
+        //pilihan ganda
+        $pid = $peserta->id;
+        $jawabanPilganPeserta = $peserta->JawabanPilihanGanda()->foreignPivotKey('peserta_id', $peserta->id);
+        dd($jawabanPilganPeserta);
+        $kunciJawabanPilgan = JawabanPilihanGanda::where('soal_id', $jawabanPilganPeserta->soal_id)->orderBy('soal_id', 'DESC')->get();
+        dd($jawabanPilganPeserta);
+        // dd($kunciJawabanPilgan);
     }
 }

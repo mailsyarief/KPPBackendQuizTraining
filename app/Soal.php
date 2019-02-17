@@ -36,21 +36,21 @@ class Soal extends Model
     public function JawabanPesertaPilihanGanda()
     {
         return $this->belongsToMany(Peserta::class ,'jawaban_peserta_pilihan_ganda','soal_id', 'peserta_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
     public function JawabanPesertaBenarSalah()
     {
         return $this->belongsToMany(Peserta::class ,'jawaban_peserta_benar_salah','soal_id', 'peserta_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
     public function JawabanPesertaMencocokan()
     {
         return $this->belongsToMany(Peserta::class ,'jawaban_peserta_mencocokan','soal_id', 'peserta_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 }

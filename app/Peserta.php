@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Soal;
 use App\Paket;
 use App\JawabanPilihanGanda;
 use App\JawabanMencocokan;
@@ -21,21 +22,21 @@ class Peserta extends Model
     public function JawabanMencocokan()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_mencocokan','peserta_id', 'soal_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
     public function JawabanPilihanGanda()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_pilihan_ganda','peserta_id', 'soal_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
     public function JawabanBenarSalah()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_benar_salah','peserta_id', 'soal_id')
-                    ->withPivot('jawaban_peserta')
+                    ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 }

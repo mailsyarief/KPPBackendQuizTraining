@@ -16,6 +16,7 @@ class JawabanPesertaMencocokan extends Migration
         Schema::create('jawaban_peserta_mencocokan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('jawaban_peserta');
+            $table->boolean('isTrue');
 
             $table->integer('soal_id')->unsigned()->index()->nullable();
             $table->foreign('soal_id')->references('id')->on('soal');
