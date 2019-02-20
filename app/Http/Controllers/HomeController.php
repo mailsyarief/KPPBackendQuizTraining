@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Section;
+use App\Peserta;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,8 @@ class HomeController extends Controller
     {
         $data = [
             'title' => 'Home',
+            'peserta' => Peserta::all()->count(),
+            'kkm' => Peserta::where('nilai','>=',70 )->count(),
             'section' => Section::all()->count()
         ];
         return view('home')->with(compact('data'));

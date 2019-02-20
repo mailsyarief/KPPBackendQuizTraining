@@ -28,7 +28,7 @@
 
           <!-- Scrollable -->
           <div class="c-sidebar__body">
-            <span class="c-sidebar__title">TRAINING QUIZ</span>
+            <span class="c-sidebar__title">UJIAN ONLINE</span>
             <ul class="c-sidebar__list">
               <li>
                 <a class="c-sidebar__link" href="{{url('/home')}}">

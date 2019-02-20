@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sign In | Neat</title>
+    <title>Login</title>
     <meta name="description" content="Neat">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,7 +24,7 @@
           <!-- <span class="c-icon c-icon--large u-mb-small"> -->
             <img src="{{url('neat/logokpp.png')}}">
           <!-- </span> -->
-          <h6 class="u-mb-medium">Quiz Training System</h6>
+          <h6 class="u-mb-medium">Ujian Online</h6>
           <br>
           <form method="POST" action="{{ route('login') }}">
             @csrf
