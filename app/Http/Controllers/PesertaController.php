@@ -30,6 +30,11 @@ class PesertaController extends Controller
         return view('detilpeserta')->with(compact('data'));
     }
 
+    public function DeleteAkun($id)
+    {
+        
+    }
+
     public function DaftarPeserta(Request $request){
         $token = md5(uniqid(rand(), true));
         $section = Section::where('nama', $request->section)->first();

@@ -22,6 +22,7 @@
             <tr class="c-table__row">
               <th class="c-table__cell c-table__cell--head">Nama</th>
               <th class="c-table__cell c-table__cell--head">NRP</th>
+              <th class="c-table__cell c-table__cell--head">Token</th>
               <th class="c-table__cell c-table__cell--head">Section</th>
               <th class="c-table__cell c-table__cell--head">Paket</th>
               <th class="c-table__cell c-table__cell--head">Nilai</th>
@@ -40,6 +41,7 @@
                 </div>
               </td>
             <td class="c-table__cell">{{ $peserta->nrp }}</td>
+            <td class="c-table__cell">{{ $peserta->token }}</td>
             <th class="c-table__cell">{{ $peserta->section }}</th>
             <th class="c-table__cell">
               @if($peserta->Paket->Nama == NULL)

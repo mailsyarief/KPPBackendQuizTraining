@@ -42,14 +42,14 @@
               </li>
               <li>
               <a class="c-sidebar__link" href="{{ url('/section') }}">
-                  <i class="c-sidebar__icon feather icon-tag"></i>Section
+                  <i class="c-sidebar__icon feather icon-file-text"></i>Section
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a class="c-sidebar__link" href="invoice.html">
                   <i class="c-sidebar__icon feather icon-file-text"></i>Soal
                 </a>
-              </li>
+              </li> --}}
               <li>
                 <a class="c-sidebar__link" href="https://zawiastudio.com/neat/docs/">
                   <i class="c-sidebar__icon feather icon-book"></i>Charts
