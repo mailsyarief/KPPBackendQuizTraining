@@ -20,5 +20,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/peserta', 'PesertaController@LihatPeserta');
     Route::get('/peserta/{id}', 'PesertaController@DetilPeserta');
+
     Route::get('/section', 'SectionController@LihatSection');
+    Route::get('/section/hapus/{id}', 'SectionController@HapusSection');
+    Route::post('/tambahsection', 'SectionController@HapusSection');
+    
+    Route::get('/paketsoal/{id}', 'PaketController@LihatPaket');
+    Route::get('/tambahpaketsoal/{id}', 'PaketController@TambahPaket');
+    Route::post('/tambahpaketsoal', 'PaketController@SubmitTambahPaket');
+    Route::get('/hapuspaketsoal/{id}', 'PaketController@HapusPaket');
+
+    Route::get('/tambahsection', 'SectionController@TambahSection');
+    Route::post('/tambahsection', 'SectionController@TambahSectionSubmit');
 });

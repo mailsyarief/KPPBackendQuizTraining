@@ -22,7 +22,7 @@ class JawabanPilihanGanda extends Migration
             $table->string('jawaban');
 
             $table->integer('soal_id')->unsigned()->index()->nullable();
-            $table->foreign('soal_id')->references('id')->on('soal');
+            $table->foreign('soal_id')->references('id')->on('soal')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -19,10 +19,10 @@ class JawabanPesertaBenarSalah extends Migration
             $table->boolean('isTrue');
 
             $table->integer('soal_id')->unsigned()->index()->nullable();
-            $table->foreign('soal_id')->references('id')->on('soal');
+            $table->foreign('soal_id')->references('id')->on('soal')->onDelete('cascade');
 
             $table->integer('peserta_id')->unsigned()->index()->nullable();
-            $table->foreign('peserta_id')->references('id')->on('peserta');
+            $table->foreign('peserta_id')->references('id')->on('peserta')->onDelete('cascade');
             
             $table->timestamps();
         });

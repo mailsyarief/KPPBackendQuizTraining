@@ -18,7 +18,7 @@ class JawabanBenarSalah extends Migration
             $table->boolean('jawaban');
     
             $table->integer('soal_id')->unsigned()->index()->nullable();
-            $table->foreign('soal_id')->references('id')->on('soal');
+            $table->foreign('soal_id')->references('id')->on('soal')->onDelete('cascade');
 
             $table->timestamps();
         });

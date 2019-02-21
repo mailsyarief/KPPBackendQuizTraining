@@ -26,7 +26,7 @@ class Peserta extends Migration
             $table->timestamps();
 
             $table->integer('paket_id')->unsigned()->index()->nullable();
-            $table->foreign('paket_id')->references('id')->on('paket');
+            $table->foreign('paket_id')->references('id')->on('paket')->onDelete('cascade');
         });
     }
 

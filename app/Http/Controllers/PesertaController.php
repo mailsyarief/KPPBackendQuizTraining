@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 
 class PesertaController extends Controller
 {
-    public function LihatPeserta(){
+    public function LihatPeserta()
+    {
         $data = [
             'title' => 'Peserta',
             'peserta' => Peserta::all()
@@ -21,12 +22,16 @@ class PesertaController extends Controller
         return view('peserta')->with(compact('data'));
     }
 
-    public function DetilPeserta($id){
+    public function DetilPeserta($id)
+    {
         $peserta = Peserta::find($id)->first();
         $data = [
             'title' => 'Detil Peserta ',
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'pilihanganda' => Soal::where('paket_id', $peserta->paket_id)->where('tipe_soal', 'PILIHANGANDA')->get(),
+            'soal' => Soal::all()
         ];
+        //  dd($data['soal']->first()->JawabanPesertaPilihanGanda()->first()->pivot->soal_id);
         return view('detilpeserta')->with(compact('data'));
     }
 
@@ -35,7 +40,8 @@ class PesertaController extends Controller
         
     }
 
-    public function DaftarPeserta(Request $request){
+    public function DaftarPeserta(Request $request)
+    {
         $token = md5(uniqid(rand(), true));
         $section = Section::where('nama', $request->section)->first();
         if($section == NULL){
@@ -62,7 +68,6 @@ class PesertaController extends Controller
         if($cekPaket == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-
         if($cekPaket->soal_id == NULL){
             return response()->json(['error' => 0,'message' => 'soal belum tersedia'], 200);  
         }
