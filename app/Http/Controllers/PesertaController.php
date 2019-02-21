@@ -131,7 +131,7 @@ class PesertaController extends Controller
             $soal = Soal::where('paket_id', $peserta->Paket->id)->where('tipe_soal', $request->tipe_soal)->get();
             // dd($soal->pluck('id')->toArray());
             foreach($soal as $soal){
-                $isi_soal[] = $soal->soal;
+                $isi_soal[] = array('id_pertanyaan' => $soal->id ,'isi_pertanyaan' => $soal->soal);
             }
             $message['kode_soal'] = $request->tipe_soal;
             $message['waktu'] = $soal->first()->waktu;
