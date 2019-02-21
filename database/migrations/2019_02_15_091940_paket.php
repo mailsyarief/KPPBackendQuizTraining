@@ -22,6 +22,9 @@ class Paket extends Migration
     
             $table->timestamps();
             $table->integer('jumlah_soal')->default(0);
+            $table->integer('jumlah_pilihan_ganda')->default(0);
+            $table->integer('jumlah_benar_salah')->default(0);
+            $table->integer('jumlah_mencocokan')->default(0);
         });
     }
 

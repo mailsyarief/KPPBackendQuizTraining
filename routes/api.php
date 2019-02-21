@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('/CekKoneksi','PesertaController@CekKoneksi');
 Route::post('/GetSection','PesertaController@GetSectionPeserta');
 Route::get('/LihatPeserta','PesertaController@LihatPeserta');
 Route::post('/DaftarPeserta','PesertaController@DaftarPeserta');
