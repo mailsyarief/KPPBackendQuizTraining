@@ -94,11 +94,23 @@ class PesertaController extends Controller
         ];
         if($soal->tipe_soal == 'PILIHANGANDA'){
             $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
-            $message['pilihanA'] = $pilihanganda->pilihan_a;
-            $message['pilihanB'] = $pilihanganda->pilihan_b;
-            $message['pilihanC'] = $pilihanganda->pilihan_c;
-            $message['pilihanD'] = $pilihanganda->pilihan_d;
-            $message['jawaban'] = $pilihanganda->jawaban;
+            $jumlahpilgan = Soal::where('paket_id', $peserta->Paket->id)->where('tipe_soal', 'PILIHANGANDA')->count();
+            if($nomor < $jumlahpilgan){
+                $error = 0;
+                $message['pilihanA'] = $pilihanganda->pilihan_a;
+                $message['pilihanB'] = $pilihanganda->pilihan_b;
+                $message['pilihanC'] = $pilihanganda->pilihan_c;
+                $message['pilihanD'] = $pilihanganda->pilihan_d;
+                $message['jawaban'] = $pilihanganda->jawaban;
+            }
+            else if($nomor == $jumlahpilgan) {
+                $error = 3;
+                $message['pilihanA'] = $pilihanganda->pilihan_a;
+                $message['pilihanB'] = $pilihanganda->pilihan_b;
+                $message['pilihanC'] = $pilihanganda->pilihan_c;
+                $message['pilihanD'] = $pilihanganda->pilihan_d;
+                $message['jawaban'] = $pilihanganda->jawaban;
+            }
         }
         else if($soal->tipe_soal == 'MENCOCOKAN'){
             $mencocokan = JawabanMencocokan::where('soal_id', $soal->id)->first();
@@ -110,7 +122,7 @@ class PesertaController extends Controller
             $benarsalah = JawabanBenarSalah::where('soal_id', $soal->id)->first();
             $message['jawaban'] = $benarsalah;
         }
-        return response()->json(['error' => 0,'message' => $message], 200);
+        return response()->json(['error' => $error,'message' => $message], 200);
     }
 
     public function SubmitJawaban(Request $request)
