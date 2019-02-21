@@ -19,6 +19,8 @@ class Soal extends Migration
             $table->string('soal_gambar')->nullable();
             $table->string('soal');
             $table->string('tipe_soal');
+            $table->integer('waktu')->default(3000);
+            $table->boolean('showJawaban')->default(1);
 
             $table->integer('paket_id')->unsigned()->index()->nullable();
             $table->foreign('paket_id')->references('id')->on('paket')->onDelete('cascade');

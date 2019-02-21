@@ -85,10 +85,20 @@ class PesertaController extends Controller
         $nomor = $peserta->soal_terakhir;
         $paket = Paket::find($peserta->Paket->id)->first();
         $soal = Soal::where('paket_id', $peserta->Paket->id)->where('nomor_soal', $nomor)->first();
-        $message = array('paket' => $paket ,'soal' => $soal);
+        $message = [
+            'kode_soal' => $soal->id,
+            'isi_soal' => $soal->soal,
+            'waktu' => $soal->waktu,
+            'nomor' => $soal->nomor_soal,
+            'showJawaban' => $soal->showJawaban
+        ];
         if($soal->tipe_soal == 'PILIHANGANDA'){
             $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
-            $message['jawaban'] = $pilihanganda;
+            $message['pilihanA'] = $pilihanganda->pilihan_a;
+            $message['pilihanB'] = $pilihanganda->pilihan_b;
+            $message['pilihanC'] = $pilihanganda->pilihan_c;
+            $message['pilihanD'] = $pilihanganda->pilihan_d;
+            $message['jawaban'] = $pilihanganda->jawaban;
         }
         else if($soal->tipe_soal == 'MENCOCOKAN'){
             $mencocokan = JawabanMencocokan::where('soal_id', $soal->id)->first();
