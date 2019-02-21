@@ -5,6 +5,7 @@ use DB;
 use App\Peserta;
 use App\Soal;
 use App\Paket;
+use App\Section;
 use App\PilihanJawabanMencocokan;
 use App\JawabanPilihanGanda;
 use App\JawabanMencocokan;
@@ -62,6 +63,12 @@ class PesertaController extends Controller
             DB::rollback();
         }
         return response()->json(['error' => 0,'message' => $token], 200);
+    }
+
+    public function GetSectionPeserta(Request $request)
+    {
+        $section = Section::all()->pluck('nama')->toArray();
+        return response()->json(['error' => 0,'message' => array('section' => $section)], 200);
     }
 
     public function CekPaketPeserta(Request $request)
