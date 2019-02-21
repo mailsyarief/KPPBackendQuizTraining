@@ -29,7 +29,9 @@ class PesertaController extends Controller
             'title' => 'Detil Peserta ',
             'peserta' => $peserta,
             'pilihanganda' => Soal::where('paket_id', $peserta->paket_id)->where('tipe_soal', 'PILIHANGANDA')->get(),
-            'soal' => Soal::all()
+            'soal' => Soal::all(),
+            'benarsalah' => Soal::where('paket_id', $peserta->paket_id)->where('tipe_soal', 'BENARSALAH')->get(),
+            'mencocokan' =>Soal::where('paket_id', $peserta->paket_id)->where('tipe_soal', 'MENCOCOKAN')->get()
         ];
         //  dd($data['soal']->first()->JawabanPesertaPilihanGanda()->first()->pivot->soal_id);
         return view('detilpeserta')->with(compact('data'));

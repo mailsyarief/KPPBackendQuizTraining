@@ -65,7 +65,6 @@
                                     </div>
                                 </div>
                 @endif
-
                                 {{-- <div class="col-12"> --}}
                                   {{-- <div class="c-table-responsive@wide"> --}}
                                     <table class="c-table">
@@ -78,6 +77,7 @@
                                         </tr>
                                       </thead>
                                     <tbody>
+                                      {{-- pilihan ganda --}}
                                       @foreach($data['pilihanganda'] as $pilgan)
                                         <tr class="c-table__row">
                                           <td class="c-table__cell">
@@ -88,7 +88,7 @@
                                             </div>
                                           </td>
                                         <th class="c-table__cell">
-                                            @if($data['soal']->find($pilgan->id)->first()->JawabanPesertaPilihanGanda()->first()->pivot->jawaban_peserta == NULL)
+                                            @if($data['soal']->find($pilgan->id)->first()->JawabanPesertaPilihanGanda()->wherePivot('soal_id', $pilgan->id)->first()->jawaban_peserta == NULL)
                                             <a class="c-badge c-badge--small c-badge--danger" href="#">
                                               Belum Dijawab
                                             </a>
@@ -101,7 +101,7 @@
                                         <th class="c-table__cell">
                                             <a class="c-badge c-badge--small c-badge--danger" href="#">
                                               {{-- {{ $pilgan->JawabanPesertaPilihanGanda->id }} --}}
-                                              {{$pilgan->id}}
+                                              {{ $pilgan->JawabanPilihanGanda->first()->jawaban }}
                                             </a>
                                         </th>
                                         <th class="c-table__cell">
@@ -109,6 +109,72 @@
                                         </th>
                                         </tr>
                                       @endforeach
+                                      {{-- end pilihan ganda --}}
+                                      {{-- mencocokan --}}
+                                      {{-- @foreach($data['mencocokan'] as $mencocokan)
+                                        <tr class="c-table__row">
+                                          <td class="c-table__cell">
+                                            <div class="o-media">
+                                              <div class="o-media__body">
+                                              <h6>{{$mencocokan->soal}}</h6>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        <th class="c-table__cell">
+                                            @if($data['soal']->find($mencocokan->id)->first()->JawabanPesertaMencocokan()->first()->pivot->jawaban_peserta == NULL)
+                                            <a class="c-badge c-badge--small c-badge--danger" href="#">
+                                              Belum Dijawab
+                                            </a>
+                                            @else
+                                            <a class="c-badge c-badge--small c-badge--success" href="#">
+                                              {{ $data['soal']->find($mencocokan->id)->first()->JawabanPesertaMencocokan()->first()->pivot->jawaban_peserta }}
+                                            </a>
+                                            @endif
+                                        </th>
+                                        <th class="c-table__cell">
+                                            <a class="c-badge c-badge--small c-badge--danger" href="#">
+                                              {{-- {{ $pilgan->JawabanPesertaPilihanGanda->id }} --}}
+                                              {{-- {{$pilgan->id}}
+                                            </a>
+                                        </th>
+                                        <th class="c-table__cell">
+                                            <a class="c-badge c-badge--small c-badge--danger">-</a>
+                                        </th>
+                                        </tr>
+                                      @endforeach --}} --}}
+                                      {{-- end mencocokan --}}
+                                      {{-- benar salah --}}
+                                      {{-- @foreach($data['benarsalah'] as $benarsalah)
+                                        <tr class="c-table__row">
+                                          <td class="c-table__cell">
+                                            <div class="o-media">
+                                              <div class="o-media__body">
+                                              <h6>{{$benarsalah->soal}}</h6>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        <th class="c-table__cell">
+                                            @if($data['soal']->find($benarsalah->id)->first()->JawabanPesertaBenarSalah()->first()->pivot->jawaban_peserta == NULL)
+                                            <a class="c-badge c-badge--small c-badge--danger" href="#">
+                                              Belum Dijawab
+                                            </a>
+                                            @else
+                                            <a class="c-badge c-badge--small c-badge--success" href="#">
+                                              {{ $data['soal']->find($benarsalah->id)->first()->JawabanPesertaBenarSalah()->first()->pivot->jawaban_peserta }}
+                                            </a>
+                                            @endif
+                                        </th>
+                                        <th class="c-table__cell">
+                                            <a class="c-badge c-badge--small c-badge--danger" href="#">
+                                              {{-- {{ $pilgan->JawabanPesertaPilihanGanda->id }} --}}
+                                              {{-- {{$benarsalah->id}}
+                                            </a>
+                                        </th>
+                                        <th class="c-table__cell">
+                                            <a class="c-badge c-badge--small c-badge--danger">-</a>
+                                        </th>
+                                        </tr> --}}
+                                      {{-- @endforeach --}}
                                     </tbody>
                                     </table>
                                   {{-- </div> --}}
