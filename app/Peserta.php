@@ -19,21 +19,21 @@ class Peserta extends Model
         return $this->belongsTo(Paket::class);
     }
 
-    public function JawabanMencocokan()
+    public function JawabanPesertaMencocokan()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_mencocokan','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
-    public function JawabanPilihanGanda()
+    public function JawabanPesertaPilihanGanda()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_pilihan_ganda','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta', 'isTrue')
                     ->withTimeStamps();
     }
 
-    public function JawabanBenarSalah()
+    public function JawabanPesertaBenarSalah()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_benar_salah','peserta_id', 'soal_id')
                     ->withPivot('jawaban_peserta', 'isTrue')

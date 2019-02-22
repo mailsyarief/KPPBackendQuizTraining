@@ -193,4 +193,17 @@ class PesertaController extends Controller
         $jawabanPilganPeserta = $peserta->JawabanPilihanGanda()->foreignPivotKey('peserta_id', $peserta->id);
         $kunciJawabanPilgan = JawabanPilihanGanda::where('soal_id', $jawabanPilganPeserta->soal_id)->orderBy('soal_id', 'DESC')->get();
     }
+
+    public function Remedial(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $peserta->update(['soal_terakhir' => 1]);
+        $peserta->JawabanPesertaPilihanGanda()->detach();
+        $peserta->JawabanPesertaMencocokan()->detach();
+        $peserta->JawabanPesertaBenarSalah()->detach();
+        return response()->json(['error' => 1,'message' => 'sukses'], 200);  
+    }
 }
