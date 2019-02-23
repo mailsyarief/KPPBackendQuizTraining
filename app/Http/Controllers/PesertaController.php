@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Redirect;
 use App\Peserta;
 use App\Soal;
 use App\Paket;
@@ -22,7 +23,27 @@ class PesertaController extends Controller
         ];
         return view('peserta')->with(compact('data'));
     }
+    
+    public function TentukanPaketPeserta($id)
+    {
+        $peserta = Peserta::find($id);
+        $data = [
+            'title' => 'Tentukan paket soal untuk peserta '.$peserta->nama,
+            'peserta' => $peserta,
+            'paket' => Paket::where('section_id', $peserta->section_id)->get()
+        ];
+        return view('pilihpaketpeserta')->with(compact('data'));
+    }
 
+    public function PilihPaketPeserta($idPeserta,$idPaket)
+    {
+        $paket = Paket::find($idPaket);
+        $peserta = Peserta::find($idPeserta);
+        $peserta->paket_id = $paket->id;
+        $peserta->save();
+        return Redirect('peserta')->with('pesan_sukses', 'Paket soal berhasil dipilih untuk '.$peserta->nama);
+    }
+    
     public function DetilPeserta($id)
     {
         $peserta = Peserta::find($id)->first();
@@ -168,7 +189,6 @@ class PesertaController extends Controller
         else{
             $isTrue = 0;
         }
-
         if($request->tipe_soal == 'PILIHANGANDA'){
             $soal->JawabanPesertaPilihanGanda()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
         }

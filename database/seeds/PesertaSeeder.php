@@ -16,7 +16,7 @@ class PesertaSeeder extends Seeder
         $peserta->nama = 'Hilmi Raditya';
         $peserta->nrp = '12345678';
         $peserta->paket_id = 1;
-        $peserta->section = 'track';
+        // $peserta->section = 'track';
         $peserta->token = 'e4237eac89c0ebfd812e9155cc3c346e';
         $peserta->save();
     }

@@ -19,6 +19,8 @@ Route::post('logout', ['as' => 'logout','uses' => 'Auth\LoginController@logout']
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index');
     Route::get('/peserta', 'PesertaController@LihatPeserta');
+    Route::get('/tentukanpaketpeserta/{id}', 'PesertaController@TentukanPaketPeserta');
+    Route::get('/pilihpaketpeserta/{idPeserta}/{idPaket}', 'PesertaController@PilihPaketPeserta');
     Route::get('/peserta/{id}', 'PesertaController@DetilPeserta');
 
     Route::get('/section', 'SectionController@LihatSection');
@@ -32,4 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/tambahsection', 'SectionController@TambahSection');
     Route::post('/tambahsection', 'SectionController@TambahSectionSubmit');
+
+    Route::get('/lihatcharts', 'ChartController@PilihSection');
+    Route::get('/lihatcharts/{id}', 'ChartController@LihatChartPeserta');
 });

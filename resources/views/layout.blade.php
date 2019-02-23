@@ -51,7 +51,7 @@
                 </a>
               </li> --}}
               <li>
-                <a class="c-sidebar__link" href="https://zawiastudio.com/neat/docs/">
+              <a class="c-sidebar__link" href="{{ url('/lihatcharts') }}">
                   <i class="c-sidebar__icon feather icon-book"></i>Charts
                 </a>
               </li>

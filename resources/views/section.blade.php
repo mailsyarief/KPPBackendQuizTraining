@@ -9,7 +9,7 @@
           <i class="feather icon-check"></i>
         </span>
         <div class="c-alert__content">
-          <h4 class="c-alert__title">Data berhasil dihapus</h4>
+        <h4 class="c-alert__title">{{ session('pesan_sukses') }}</h4>
         </div>
       </div>
     </div>

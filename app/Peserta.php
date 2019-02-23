@@ -19,6 +19,11 @@ class Peserta extends Model
         return $this->belongsTo(Paket::class);
     }
 
+    public function Section()
+    {
+        return $this->belongsTo(Section::class);
+    }
+
     public function JawabanPesertaMencocokan()
     {
         return $this->belongsToMany(Soal::class ,'jawaban_peserta_mencocokan','peserta_id', 'soal_id')

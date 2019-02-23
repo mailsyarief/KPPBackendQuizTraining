@@ -2,18 +2,6 @@
 @section('content')
 <div class="container">
 <div class="row">
-    @if(session()->has('pesan_sukses'))
-    <div class="col-12">
-      <div class="c-alert c-alert--success u-mb-medium">
-        <span class="c-alert__icon">
-          <i class="feather icon-check"></i>
-        </span>
-        <div class="c-alert__content">
-        <h4 class="c-alert__title">{{ session('pesan_sukses') }}</h4>
-        </div>
-      </div>
-    </div>
-    @endif
     @if($data['peserta']->count() <= 0)
     <div class="col-12">
         <div class="c-alert c-alert--warning u-mb-medium">
@@ -21,7 +9,7 @@
             <i class="feather icon-alert-triangle"></i>
         </span>
         <div class="c-alert__content">
-            <h4 class="c-alert__title">Peserta belum tersedia</h4>
+            <h4 class="c-alert__title">Peserta belum ada yang terdaftar</h4>
             <br>
         </div>
     </div>
@@ -34,12 +22,10 @@
             <tr class="c-table__row">
               <th class="c-table__cell c-table__cell--head">Nama</th>
               <th class="c-table__cell c-table__cell--head">NRP</th>
-              <th class="c-table__cell c-table__cell--head">Token</th>
-              <th class="c-table__cell c-table__cell--head">Section</th>
               <th class="c-table__cell c-table__cell--head">Paket</th>
               <th class="c-table__cell c-table__cell--head">Nilai</th>
               <th class="c-table__cell c-table__cell--head">Nilai Remedial</th>
-              <th class="c-table__cell c-table__cell--head">Actions</th>
+              <th class="c-table__cell c-table__cell--head">Soal Yang Sedang Dikerjakan</th>
             </tr>
           </thead>
         @foreach($data['peserta'] as $peserta)
@@ -53,10 +39,8 @@
                 </div>
               </td>
             <td class="c-table__cell">{{ $peserta->nrp }}</td>
-            <td class="c-table__cell">{{ $peserta->token }}</td>
-            <th class="c-table__cell">{{ $peserta->Section->nama }}</th>
             <th class="c-table__cell">
-              @if($peserta->paket_id == NULL)
+              @if($peserta->Paket->Nama == NULL)
                 <a class="c-badge c-badge--small c-badge--danger" href="#">Belum Ditentukan</a>
               @else
               <a class="c-badge c-badge--small c-badge--info" href="#">{{$peserta->Paket->nama}}</a>
@@ -76,19 +60,13 @@
                 <a class="c-badge c-badge--small c-badge--danger">Tidak Remedial</a>
               @endif
             </th>
-              <td class="c-table__cell">
-                <div class="c-dropdown dropdown">
-                  <a href="#" class="c-btn c-btn--info has-icon dropdown-toggle" id="dropdownMenuTable1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pilihan <i class="feather icon-chevron-down"></i>
-                  </a>
-                  <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuTable1">
-                    <a class="c-dropdown__item dropdown-item" href="{{url('peserta/'.$peserta->id)}}">Lihat Detil</a>
-                    @if($peserta->paket_id == NULL)
-                      <a class="c-dropdown__item dropdown-item" href="{{url('tentukanpaketpeserta/'.$peserta->id)}}">Tentukan Paket</a>
-                    @endif
-                  </div>
-                </div>
-              </td>
+            <th class="c-table__cell">
+                @if($peserta->soal_terakhir-1 != 0)
+                    <a class="c-badge c-badge--small c-badge--info">{{$peserta->soal_terakhir}}</a>
+                @else
+                    <a class="c-badge c-badge--small c-badge--danger">Belum Mengerjakan</a>
+                @endif
+            </th>
             </tr>
         </tbody>
         @endforeach

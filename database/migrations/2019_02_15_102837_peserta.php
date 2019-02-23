@@ -19,7 +19,7 @@ class Peserta extends Migration
             $table->string('nrp');
             $table->integer('nilai')->nullable();
             $table->string('token')->nullable();
-            $table->string('section');
+            $table->boolean('isFinished')->default(0);
             $table->boolean('isRemedial')->default(0);
             $table->integer('nilaiRemedial')->nullable();
             $table->integer('soal_terakhir')->default(1);
@@ -27,6 +27,9 @@ class Peserta extends Migration
 
             $table->integer('paket_id')->unsigned()->index()->nullable();
             $table->foreign('paket_id')->references('id')->on('paket')->onDelete('cascade');
+
+            $table->integer('section_id')->unsigned()->index()->nullable();
+            $table->foreign('section_id')->references('id')->on('section')->onDelete('cascade');
         });
     }
 
