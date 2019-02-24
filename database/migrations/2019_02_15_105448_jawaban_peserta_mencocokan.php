@@ -16,10 +16,10 @@ class JawabanPesertaMencocokan extends Migration
         Schema::create('jawaban_peserta_mencocokan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('jawaban_peserta');
-            $table->boolean('isTrue');
+            $table->integer('jumlahBenar')->default(0);
 
-            $table->integer('soal_id')->unsigned()->index()->nullable();
-            $table->foreign('soal_id')->references('id')->on('soal')->onDelete('cascade');
+            $table->integer('paket_id')->unsigned()->index()->nullable();
+            $table->foreign('paket_id')->references('id')->on('paket')->onDelete('cascade');
 
             $table->integer('peserta_id')->unsigned()->index()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta')->onDelete('cascade');

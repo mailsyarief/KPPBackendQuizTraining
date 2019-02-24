@@ -21,11 +21,4 @@ class JawabanMencocokan extends Model
     {
         return $this->belongsTo(PilihanJawabanMencocokan::class);
     }
-
-    // public function Peserta()
-    // {
-    //     return $this->belongsToMany(Peserta::class ,'jawaban_peserta_mencocokan','jawaban_mencocokan_id', 'peserta_id')
-    //                 ->withPivot('jawaban_peserta')
-    //                 ->withTimeStamps();
-    // }
 }

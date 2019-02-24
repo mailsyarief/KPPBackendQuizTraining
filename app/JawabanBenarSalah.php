@@ -15,11 +15,4 @@ class JawabanBenarSalah extends Model
     {
         return $this->belongsTo(Soal::class);
     }    
-
-    // public function Peserta()
-    // {
-    //     return $this->belongsToMany(Peserta::class ,'jawaban_peserta_benar_salah','jawaban_benar_salah_id', 'peserta_id')
-    //                 ->withPivot('jawaban_peserta')
-    //                 ->withTimeStamps();
-    // }
 }

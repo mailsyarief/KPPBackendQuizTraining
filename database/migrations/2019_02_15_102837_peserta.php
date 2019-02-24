@@ -21,6 +21,7 @@ class Peserta extends Migration
             $table->string('token')->nullable();
             $table->boolean('isFinished')->default(0);
             $table->boolean('isRemedial')->default(0);
+            $table->boolean('isStart')->default(0);
             $table->integer('nilaiRemedial')->nullable();
             $table->integer('soal_terakhir')->default(1);
             $table->timestamps();

@@ -11,10 +11,6 @@ class Section extends Model
     protected $table = 'section';
     protected $fillable = ['nama'];
 
-    public function Paket()
-    {
-        return $this->HasMany(Paket::class);
-    }
     public function Peserta()
     {
         return $this->HasMany(Peserta::class);

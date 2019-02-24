@@ -31,4 +31,25 @@ class Paket extends Model
     {
         return $this->hasMany(PilihanJawabanMencocokan::class);
     }
+
+    public function JawabanPesertaPilihanGanda()
+    {
+        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_pilihan_ganda','paket_id', 'peserta_id')
+                    ->withPivot('jumlahBenar')
+                    ->withTimeStamps();
+    }
+
+    public function JawabanPesertaBenarSalah()
+    {
+        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_benar_salah','paket_id', 'peserta_id')
+                    ->withPivot('jumlahBenar')
+                    ->withTimeStamps();
+    }
+
+    public function JawabanPesertaMencocokan()
+    {
+        return $this->belongsToMany(Peserta::class ,'jawaban_peserta_mencocokan','paket_id', 'peserta_id')
+                    ->withPivot('jumlahBenar')
+                    ->withTimeStamps();
+    }
 }
