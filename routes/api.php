@@ -17,10 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/Remedial','PesertaController@Remedial');
-Route::post('/CekKoneksi','PesertaController@CekKoneksi');
-Route::post('/GetSection','PesertaController@GetSectionPeserta');
+Route::get('/cekkoneksi','PesertaController@CekKoneksi');
+Route::get('/getsection','PesertaController@GetSectionPeserta');
 Route::get('/LihatPeserta','PesertaController@LihatPeserta');
-Route::post('/DaftarPeserta','PesertaController@DaftarPeserta');
+Route::post('/daftarpeserta','PesertaController@DaftarPeserta');
 Route::post('/CekPaketPeserta','PesertaController@CekPaketPeserta');
 Route::post('/RequestSoal','PesertaController@RequestSoal');
 Route::post('/SubmitJawaban','PesertaController@SubmitJawaban');

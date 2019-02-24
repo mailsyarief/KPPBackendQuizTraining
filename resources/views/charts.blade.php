@@ -9,7 +9,7 @@
             <i class="feather icon-alert-triangle"></i>
         </span>
         <div class="c-alert__content">
-            <h4 class="c-alert__title">Peserta belum ada yang terdaftar</h4>
+            <h4 class="c-alert__title">Peserta belum ada yang mengambil section ini</h4>
             <br>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <tr class="c-table__row">
               <th class="c-table__cell c-table__cell--head">Nama</th>
               <th class="c-table__cell c-table__cell--head">NRP</th>
-              <th class="c-table__cell c-table__cell--head">Paket</th>
+              {{-- <th class="c-table__cell c-table__cell--head">Paket</th> --}}
               <th class="c-table__cell c-table__cell--head">Nilai</th>
               <th class="c-table__cell c-table__cell--head">Nilai Remedial</th>
               <th class="c-table__cell c-table__cell--head">Soal Yang Sedang Dikerjakan</th>
@@ -39,13 +39,13 @@
                 </div>
               </td>
             <td class="c-table__cell">{{ $peserta->nrp }}</td>
-            <th class="c-table__cell">
+            {{-- <th class="c-table__cell">
               @if($peserta->Paket->Nama == NULL)
                 <a class="c-badge c-badge--small c-badge--danger" href="#">Belum Ditentukan</a>
               @else
               <a class="c-badge c-badge--small c-badge--info" href="#">{{$peserta->Paket->nama}}</a>
               @endif
-            </th>
+            </th> --}}
             <th class="c-table__cell">
               @if($peserta->Nilai == NULL)
                 <a class="c-badge c-badge--small c-badge--danger">Belum Selesai</a>

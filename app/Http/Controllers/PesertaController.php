@@ -65,12 +65,13 @@ class PesertaController extends Controller
         if($section == NULL){
             return response()->json(['error' => 0,'message' => 'section tidak ditemukan'], 200);
         }
+        $getIDSection = Section::where('nama', $request->section)->first()->id;
         DB::BeginTransaction();
         try{
             $peserta = New Peserta;
             $peserta->nama = $request->nama;
             $peserta->nrp = $request->nrp;
-            $peserta->section = $request->section;
+            $peserta->section_id = $getIDSection;
             $peserta->token = $token;
             $peserta->save();
             DB::commit();
@@ -80,15 +81,15 @@ class PesertaController extends Controller
         return response()->json(['error' => 0,'message' => $token], 200);
     }
 
-    public function GetSectionPeserta(Request $request)
+    public function GetSectionPeserta()
     {
         $section = Section::all()->pluck('nama')->toArray();
         return response()->json(['error' => 0,'message' => array('section' => $section)], 200);
     }
 
-    public function CekKoneksi(Request $request)
+    public function CekKoneksi()
     {
-        return response()->json(['error' => 0,'message' => array()], 200);  
+        return response()->json(['error' => 0,'message' => '-'], 200);  
     }
 
     public function CekPaketPeserta(Request $request)
@@ -209,9 +210,34 @@ class PesertaController extends Controller
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        $pid = $peserta->id;
-        $jawabanPilganPeserta = $peserta->JawabanPilihanGanda()->foreignPivotKey('peserta_id', $peserta->id);
-        $kunciJawabanPilgan = JawabanPilihanGanda::where('soal_id', $jawabanPilganPeserta->soal_id)->orderBy('soal_id', 'DESC')->get();
+        $benarPilgan = 0;
+        $benarMencocokan = 0;
+        $benarBenarSalah = 0;
+        foreach($peserta->JawabanPesertaPilihanGanda as $pilgan){
+            if($pilgan->pivot->isTrue == 1){
+                $benarPilgan++;
+            }
+        }
+        foreach($peserta->JawabanPesertaBenarSalah as $benarsalah){
+            if($benarsalah->pivot->isTrue == 1){
+                $benarBenarSalah++;
+            }
+        }
+        foreach($peserta->JawabanPesertaMencocokan as $mencocokan){
+            if($mencocokan->pivot->isTrue == 1){
+                $benarMencocokan++;
+            }
+        }
+        $jumlahSoal = Paket::find($peserta->paket_id)->jumlah_soal;
+        $jumlahBenar = $benarPilgan + $benarMencocokan + $benarBenarSalah;
+        $nilai = ($jumlahBenar/$jumlahSoal)*100;
+        if($peserta->isRemedial == 0){
+            $peserta->update(['nilai' => $nilai, 'isFinished' => 1]);
+        }
+        else{
+            $peserta->update(['nilaiRemedial' => $nilai, 'isFinished' => 1]);
+        }
+        return response()->json(['error' => 0,'message' => $nilai], 200);
     }
 
     public function Remedial(Request $request)
@@ -220,7 +246,7 @@ class PesertaController extends Controller
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        $peserta->update(['soal_terakhir' => 1]);
+        $peserta->update(['soal_terakhir' => 1, 'isRemedial' => 1]);
         $peserta->JawabanPesertaPilihanGanda()->detach();
         $peserta->JawabanPesertaMencocokan()->detach();
         $peserta->JawabanPesertaBenarSalah()->detach();

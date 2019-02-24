@@ -18,10 +18,10 @@ class JawabanPesertaPilihanGanda extends Migration
             $table->string('jawaban_peserta');
             $table->boolean('isTrue');
 
-            $table->integer('soal_id')->unsigned()->index()->nullable();
+            $table->integer('soal_id')->unsigned()->nullable();
             $table->foreign('soal_id')->references('id')->on('soal')->onDelete('cascade');
 
-            $table->integer('peserta_id')->unsigned()->index()->nullable();
+            $table->integer('peserta_id')->unsigned()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta')->onDelete('cascade');
 
             $table->timestamps();
