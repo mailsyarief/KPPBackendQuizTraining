@@ -15,7 +15,6 @@ class JawabanPesertaPilihanGanda extends Migration
     {
         Schema::create('jawaban_peserta_pilihan_ganda', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('jawaban_peserta');
             $table->integer('jumlahBenar')->default(0);
 
             $table->integer('paket_id')->unsigned()->nullable();

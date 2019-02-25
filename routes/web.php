@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/tentukanpaketpeserta/{id}', 'PesertaController@TentukanPaketPeserta');
     Route::get('/pilihpaketpeserta/{idPeserta}/{idPaket}', 'PesertaController@PilihPaketPeserta');
     Route::get('/peserta/{id}', 'PesertaController@DetilPeserta');
+    Route::get('/pesertamulai', 'PesertaController@Mulai');
 
     Route::get('/section', 'SectionController@LihatSection');
     Route::get('/section/hapus/{id}', 'SectionController@HapusSection');

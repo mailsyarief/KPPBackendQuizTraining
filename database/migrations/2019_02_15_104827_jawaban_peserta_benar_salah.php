@@ -15,7 +15,6 @@ class JawabanPesertaBenarSalah extends Migration
     {
         Schema::create('jawaban_peserta_benar_salah', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('jawaban_peserta');
             $table->integer('jumlahBenar')->default(0);
 
             $table->integer('paket_id')->unsigned()->index()->nullable();

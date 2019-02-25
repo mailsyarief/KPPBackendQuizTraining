@@ -2,8 +2,8 @@
 
 namespace App;
 
+use App\Section;
 use App\Soal;
-use App\Batch;
 use App\Paket;
 use App\JawabanPilihanGanda;
 use App\JawabanMencocokan;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Peserta extends Model
 {
     protected $table = 'peserta';
-    protected $fillable = ['nama','nrp','nilai','token','isRemedial','nilaiRemedial','paket_id', 'section_id', 'soal_terakhir', 'nomor_soal'];
+    protected $fillable = ['nama','nrp','nilai','token','isStart','isFinished', 'isRemedial','nilaiRemedial','paket_id', 'section_id', 'soal_terakhir', 'nomor_soal'];
 
     public function Paket()
     {

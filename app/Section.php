@@ -15,4 +15,9 @@ class Section extends Model
     {
         return $this->HasMany(Peserta::class);
     }
+
+    public function Paket()
+    {
+        return $this->HasMany(Paket::class);
+    }
 }

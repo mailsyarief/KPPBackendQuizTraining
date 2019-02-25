@@ -16,12 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/Remedial','PesertaController@Remedial');
-Route::get('/cekkoneksi','PesertaController@CekKoneksi');
+
 Route::get('/getsection','PesertaController@GetSectionPeserta');
-Route::get('/LihatPeserta','PesertaController@LihatPeserta');
 Route::post('/daftarpeserta','PesertaController@DaftarPeserta');
-Route::post('/CekPaketPeserta','PesertaController@CekPaketPeserta');
-Route::post('/RequestSoal','PesertaController@RequestSoal');
-Route::post('/SubmitJawaban','PesertaController@SubmitJawaban');
-Route::post('/SelesaiUjian','PesertaController@SelesaiUjian');
+
+Route::post('/cekpaketpeserta','PesertaController@CekPaketPeserta');
+Route::get('/cekkoneksi','PesertaController@CekKoneksi');
+
+Route::post('/requestsoal','PesertaController@RequestSoal');
+Route::post('/submitjawaban','PesertaController@SubmitJawaban');
+
+Route::post('/remedial','PesertaController@Remedial');
+Route::post('/selesaiujian','PesertaController@SelesaiUjian');
+

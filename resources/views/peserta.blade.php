@@ -28,6 +28,9 @@
     </div>
     @else
     <div class="col-12">
+      <div align="center">
+      <a href="{{ url('pesertamulai/') }}" class="c-btn c-btn--success u-mb-xsmall">Mulai Ujian</a>
+      </div>
       <div class="c-table-responsive@wide">
         <table class="c-table">
           <thead class="c-table__head">
@@ -35,6 +38,7 @@
               <th class="c-table__cell c-table__cell--head">Nama</th>
               <th class="c-table__cell c-table__cell--head">NRP</th>
               <th class="c-table__cell c-table__cell--head">Token</th>
+              <th class="c-table__cell c-table__cell--head">Status</th>
               <th class="c-table__cell c-table__cell--head">Section</th>
               <th class="c-table__cell c-table__cell--head">Paket</th>
               <th class="c-table__cell c-table__cell--head">Nilai</th>
@@ -54,6 +58,13 @@
               </td>
             <td class="c-table__cell">{{ $peserta->nrp }}</td>
             <td class="c-table__cell">{{ $peserta->token }}</td>
+            <th class="c-table__cell">
+                @if($peserta->isStart == 0)
+                  <a class="c-badge c-badge--small c-badge--danger" href="#">Belum Mulai</a>
+                @else
+                <a class="c-badge c-badge--small c-badge--success" href="#">Sudah Mulai</a>
+                @endif
+              </th>
             <th class="c-table__cell">{{ $peserta->Section->nama }}</th>
             <th class="c-table__cell">
               @if($peserta->paket_id == NULL)

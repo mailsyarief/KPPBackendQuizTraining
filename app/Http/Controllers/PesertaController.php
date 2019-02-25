@@ -23,6 +23,15 @@ class PesertaController extends Controller
         ];
         return view('peserta')->with(compact('data'));
     }
+
+    public function Mulai()
+    {
+        Peserta::where('isStart', 0)
+                ->where('isFinished', 0)
+                ->where('paket_id', '!=', NULL)
+                ->update(['isStart' => 1]);
+        return Redirect('peserta')->with('pesan_sukses', 'Memulai ujian untuk peserta');
+    }
     
     public function TentukanPaketPeserta($id)
     {
@@ -98,108 +107,169 @@ class PesertaController extends Controller
         if($cekPaket == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        if($cekPaket->soal_id == NULL){
-            return response()->json(['error' => 0,'message' => 'soal belum tersedia'], 200);  
+        if($cekPaket->isStart == 0){
+            return response()->json(['error' => -1,'message' => '-'], 200);  
         }
-        return response()->json(['error' => 0,'message' => 'soal sudah tersedia'], 200);    
+        return response()->json(['error' => 0,'message' => '-'], 200);    
     }
 
     public function RequestSoal(Request $request)
     {
-        $peserta = Peserta::where('token', $request->token)->first();
+        $peserta = Peserta::where('token', $request->token)->where('isStart', 1)->first();
+        $paket = Paket::find($peserta->paket_id)->first();
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
         if($request->tipe_soal == 'PILIHANGANDA'){
             $nomor = $peserta->soal_terakhir;
-            $soal = Soal::where('paket_id', $peserta->Paket->id)->where('nomor_soal', $nomor)->first();
-            $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
-            $jumlahpilgan = Paket::find($peserta->Paket->id)->first()->jumlah_pilihan_ganda;
-            if($nomor < $jumlahpilgan){
-                $error = 0;
-            }
-            else if($nomor == $jumlahpilgan){
-                $error = 3;
-            }
-            $message = [
-                'kode_soal' => $soal->id,
-                'isi_soal' => $soal->soal,
-                'waktu' => $soal->waktu,
-                'nomor' => $soal->nomor_soal,
-                'showJawaban' => $soal->showJawaban,
-                'pilihanA' => $pilihanganda->pilihan_a,
-                'pilihanB' => $pilihanganda->pilihan_b,
-                'pilihanC' => $pilihanganda->pilihan_c,
-                'pilihanD' => $pilihanganda->pilihan_d,
-                'jawaban' => $pilihanganda->jawaban
-            ];
-        }
-        else if($request->tipe_soal == 'MENCOCOKAN'){
-            $soal = Soal::where('paket_id', $peserta->Paket->id)->where('tipe_soal', $request->tipe_soal)->get();
-            foreach($soal as $soal){
-                $isi_soal[] = array('id_pertanyaan' => $soal->id ,'isi_pertanyaan' => $soal->soal);
-            }
-            $mencocokan = JawabanMencocokan::whereIn('soal_id', $soal->pluck('id')->toArray())->orderBy('soal_id', 'ASC')->get();
-            foreach($mencocokan as $mencocokan){
-                $kunci_jawaban_mencocokan[] = $mencocokan->PilihanJawabanMencocokan->pilihan_jawaban;
-            }
-            $opsi_jawaban = PilihanJawabanMencocokan::where('paket_id', $peserta->Paket->id)->get()->pluck('pilihan_jawaban')->toArray();
-            $message = [
-                'kode_soal' => $request->tipe_soal,
-                'waktu' => $soal->first()->waktu,
-                'isi_soal' => $isi_soal,
-                'opsi_jawaban' => $opsi_jawaban,
-                'kunci_jawaban' => $kunci_jawaban_mencocokan,
-            ];
-            $error = 0;
-        }
-        else if($request->tipe_soal == 'BENARSALAH'){
-            $nomor = $peserta->soal_terakhir;
-            $jumlahbenarsalah = Paket::find($peserta->Paket->id)->first();
-            $cekbenarsalah = $nomor - $jumlahbenarsalah->jumlah_pilihan_ganda - $jumlahbenarsalah->jumlah_mencocokan;
-            $soal = Soal::where('paket_id', $peserta->Paket->id)->where('nomor_soal', $nomor)->first();
-            $benarsalah = JawabanBenarSalah::where('soal_id', $soal->id)->first();
-            if($cekbenarsalah == $jumlahbenarsalah->jumlah_benar_salah){
-                $error = 3;
+            $soal = Soal::where('paket_id', $peserta->Paket->id)
+                        ->where('nomor_soal', $nomor)
+                        ->where('tipe_soal', $request->tipe_soal)
+                        ->first();
+            if($soal == NULL){
+                $error = 1;
+                $message = [
+                    'kode_soal' => '-',
+                    'gambar_soal' => '-',
+                    'isi_soal' => '-',
+                    'waktu' => '-',
+                    'nomor' => '-',
+                    'showJawaban' => '-',
+                    'pilihanA' => '-',
+                    'pilihanB' => '-',
+                    'pilihanC' => '-',
+                    'pilihanD' => '-',
+                    'jawaban' => '-'
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
             }
             else{
+                if($soal->gambar_soal == NULL){
+                    $gambarSoal = '-';
+                }
+                else{
+                    $gambarSoal = $soal->gambar_soal;
+                }
+                $pilihanganda = JawabanPilihanGanda::where('soal_id', $soal->id)->first();
                 $error = 0;
+                $message = [
+                    'kode_soal' => $soal->id,
+                    'gambar_soal' => $gambarSoal,
+                    'isi_soal' => $soal->soal,
+                    'waktu' => $soal->waktu,
+                    'nomor' => $soal->nomor_soal,
+                    'showJawaban' => $soal->showJawaban,
+                    'pilihanA' => $pilihanganda->pilihan_a,
+                    'pilihanB' => $pilihanganda->pilihan_b,
+                    'pilihanC' => $pilihanganda->pilihan_c,
+                    'pilihanD' => $pilihanganda->pilihan_d,
+                    'jawaban' => $pilihanganda->jawaban
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
             }
-            $message = [
-                'kode_soal' => $soal->id,
-                'isi_soal' => $soal->soal,
-                'waktu' => $soal->waktu,
-                'nomor' => $soal->nomor_soal,
-                'showJawaban' => $soal->showJawaban,
-                'jawaban' =>$benarsalah->jawaban
-            ];
         }
-        return response()->json(['error' => $error,'message' => $message], 200);
+        else if($request->tipe_soal == 'MENCOCOKAN'){
+            $cekSoal = Soal::where('paket_id', $peserta->paket_id)
+                    ->where('tipe_soal', $request->tipe_soal)
+                    ->where('nomor_soal', $peserta->soal_terakhir)
+                    ->first();
+            $soal = Soal::where('paket_id', $peserta->paket_id)
+                    ->where('tipe_soal', $request->tipe_soal)
+                    ->get();
+            if($cekSoal == NULL){
+                $error = 2;
+                $message = [
+                    'kode_soal' => '-',
+                    'waktu' => '-',
+                    'isi_soal' => '-',
+                    'opsi_jawaban' => '-',
+                    'kunci_jawaban' => '-',
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
+            }
+            else{
+                foreach($soal as $soal){
+                    $isi_soal[] = array('id_pertanyaan' => $soal->id ,'isi_pertanyaan' => $soal->soal);
+                }
+                $mencocokan = JawabanMencocokan::whereIn('soal_id', $soal->pluck('id')->toArray())->orderBy('soal_id', 'ASC')->get();
+                foreach($mencocokan as $mencocokan){
+                    $kunci_jawaban_mencocokan[] = $mencocokan->PilihanJawabanMencocokan->pilihan_jawaban;
+                }
+                $opsi_jawaban = PilihanJawabanMencocokan::where('paket_id', $peserta->Paket->id)->get()->pluck('pilihan_jawaban')->toArray();
+                $error = 1;
+                $message = [
+                    'kode_soal' => $request->tipe_soal,
+                    'waktu' => ($soal->first()->waktu)*$paket->jumlah_mencocokan,
+                    'isi_soal' => $isi_soal,
+                    'opsi_jawaban' => $opsi_jawaban,
+                    'kunci_jawaban' => $kunci_jawaban_mencocokan,
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
+            }
+        }
+        else if($request->tipe_soal == 'BENARSALAH'){
+            $soal = Soal::where('paket_id', $peserta->Paket->id)
+                        ->where('nomor_soal', $peserta->soal_terakhir)
+                        ->where('tipe_soal', $request->tipe_soal)
+                        ->first();
+            // dd($soal);
+            if($soal == NULL){
+                $error = 3;
+                $message = [
+                    'kode_soal' => '-',
+                    'isi_soal' => '-',
+                    'waktu' => '-',
+                    'nomor' => '-',
+                    'showJawaban' => '-',
+                    'jawaban' => '-'
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
+            }
+            else{
+                $error = 2;
+                $benarsalah = JawabanBenarSalah::where('soal_id', $soal->id)->first();
+                $message = [
+                    'kode_soal' => $soal->id,
+                    'isi_soal' => $soal->soal,
+                    'waktu' => $soal->waktu,
+                    'nomor' => $soal->nomor_soal,
+                    'showJawaban' => $soal->showJawaban,
+                    'jawaban' =>$benarsalah->jawaban
+                ];
+                return response()->json(['error' => $error,'message' => $message], 200);
+            }
+        }
     }
 
     public function SubmitJawaban(Request $request)
     {
         $peserta = Peserta::where('token', $request->token)->first();
-        $soal = Soal::find($peserta->Paket->id)->where('nomor_soal', $peserta->soal_terakhir)->where('TIPE_SOAL', $request->tipe_soal)->first();
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        if($request->jawaban == $request->jawaban_peserta){
-            $isTrue = 1;
-        }
-        else{
-            $isTrue = 0;
-        }
+        $paket = Paket::find($peserta->paket_id);
         if($request->tipe_soal == 'PILIHANGANDA'){
-            $soal->JawabanPesertaPilihanGanda()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
+            if($paket->JawabanPesertaPilihanGanda()->first() == NULL){
+                $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => 0]); 
+            }
+            $temp = $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
+            $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->detach();
+            $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => $temp+1]); 
+            $nomor = $peserta->soal_terakhir + 1;
         }
         else if($request->tipe_soal == 'MENCOCOKAN'){
-            $soal->JawabanPesertaMencocokan()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
+            $paket->JawabanPesertaMencocokan()->attach($peserta->id,['jumlahBenar' => $request->nilai]);
+            $nomor = $peserta->soal_terakhir + $paket->jumlah_mencocokan;
         }
         else if($request->tipe_soal == 'BENARSALAH'){
-            $soal->JawabanPesertaBenarSalah()->attach($peserta->id,['jawaban_peserta' => $request->jawaban_peserta, 'isTrue' => $isTrue]);
+            if($paket->JawabanPesertaBenarSalah()->first() == NULL){
+                $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => 0]); 
+            }
+            $temp = $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
+            $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->detach();
+            $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => $temp+1]); 
+            $nomor = $peserta->soal_terakhir + 1;
         }
-        $nomor = $peserta->soal_terakhir + 1;
         $peserta->update(['soal_terakhir' => $nomor]);
         return response()->json(['error' => 0,'message' => 'sukses input'], 200);
     }
@@ -210,34 +280,31 @@ class PesertaController extends Controller
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        $benarPilgan = 0;
-        $benarMencocokan = 0;
-        $benarBenarSalah = 0;
-        foreach($peserta->JawabanPesertaPilihanGanda as $pilgan){
-            if($pilgan->pivot->isTrue == 1){
-                $benarPilgan++;
-            }
-        }
-        foreach($peserta->JawabanPesertaBenarSalah as $benarsalah){
-            if($benarsalah->pivot->isTrue == 1){
-                $benarBenarSalah++;
-            }
-        }
-        foreach($peserta->JawabanPesertaMencocokan as $mencocokan){
-            if($mencocokan->pivot->isTrue == 1){
-                $benarMencocokan++;
-            }
-        }
-        $jumlahSoal = Paket::find($peserta->paket_id)->jumlah_soal;
-        $jumlahBenar = $benarPilgan + $benarMencocokan + $benarBenarSalah;
-        $nilai = ($jumlahBenar/$jumlahSoal)*100;
-        if($peserta->isRemedial == 0){
-            $peserta->update(['nilai' => $nilai, 'isFinished' => 1]);
+        $paket = Paket::find($peserta->paket_id);
+        $jumlahSoal = $paket->jumlah_soal;
+        $benarPilgan = $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
+        $jumlahPilgan = $paket->jumlah_pilihan_ganda;
+        $nilaiPilgan = ($benarPilgan / $jumlahPilgan) * 100;
+        $benarMencocokan = $paket->JawabanPesertaMencocokan()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
+        $jumlahMencocokan = $paket->jumlah_mencocokan;
+        $nilaiMencocokan = ($benarMencocokan / $jumlahMencocokan) * 100;
+        $benarBenarSalah = $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
+        $jumlahBenarSalah = $paket->jumlah_benar_salah;
+        $nilaiBenarSalah = ($benarBenarSalah / $jumlahBenarSalah) * 100;
+        $nilaiAkhir = (($benarPilgan + $benarMencocokan + $benarBenarSalah) / $jumlahSoal) * 100;
+        $message = [
+            'nilai_pilgan' => $nilaiPilgan,
+            'nilai_mencocokan' => $nilaiMencocokan,
+            'nilai_benar_salah' => $nilaiBenarSalah,
+            'nilai_akhir' => $nilaiAkhir
+        ];
+        if($peserta->isRemedial == 1){
+            $peserta->update(['isFinished' => 1, 'nilaiRemedial' => $nilaiAkhir]);
         }
         else{
-            $peserta->update(['nilaiRemedial' => $nilai, 'isFinished' => 1]);
+            $peserta->update(['isFinished' => 1, 'nilai' => $nilaiAkhir]);            
         }
-        return response()->json(['error' => 0,'message' => $nilai], 200);
+        return response()->json(['error' => 0,'message' => $message], 200);
     }
 
     public function Remedial(Request $request)
@@ -246,10 +313,11 @@ class PesertaController extends Controller
         if($peserta == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        $peserta->update(['soal_terakhir' => 1, 'isRemedial' => 1]);
-        $peserta->JawabanPesertaPilihanGanda()->detach();
-        $peserta->JawabanPesertaMencocokan()->detach();
-        $peserta->JawabanPesertaBenarSalah()->detach();
+        $paket = Paket::find($peserta->paket_id);
+        $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->detach();
+        $paket->JawabanPesertaMencocokan()->where('peserta_id', $peserta->id)->detach();
+        $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->detach();
+        $peserta->update(['soal_terakhir' => 1, 'isRemedial' => 1, 'isFinished' => 0]);
         return response()->json(['error' => 1,'message' => 'sukses'], 200);  
     }
 }
