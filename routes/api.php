@@ -29,3 +29,6 @@ Route::post('/submitjawaban','PesertaController@SubmitJawaban');
 Route::post('/remedial','PesertaController@Remedial');
 Route::post('/selesaiujian','PesertaController@SelesaiUjian');
 
+Route::post('/pembahasanpilgan','PesertaController@PembahasanPilihanGanda');
+Route::post('/pembahasanmencocokan','PesertaController@PembahasanMencocokan');
+Route::post('/pembahasanbenarsalah','PesertaController@PembahasanBenarSalah');

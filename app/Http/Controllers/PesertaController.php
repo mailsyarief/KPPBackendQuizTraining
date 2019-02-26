@@ -212,7 +212,6 @@ class PesertaController extends Controller
                         ->where('nomor_soal', $peserta->soal_terakhir)
                         ->where('tipe_soal', $request->tipe_soal)
                         ->first();
-            // dd($soal);
             if($soal == NULL){
                 $error = 3;
                 $message = [
@@ -238,6 +237,12 @@ class PesertaController extends Controller
                 ];
                 return response()->json(['error' => $error,'message' => $message], 200);
             }
+        }
+        else if($request->tipe_soal == 'ESSAY'){
+            $soal = Soal::where('paket_id', $peserta->Paket->id)
+            ->where('nomor_soal', $peserta->soal_terakhir)
+            ->where('tipe_soal', $request->tipe_soal)
+            ->first();
         }
     }
 
@@ -320,4 +325,126 @@ class PesertaController extends Controller
         $peserta->update(['soal_terakhir' => 1, 'isRemedial' => 1, 'isFinished' => 0]);
         return response()->json(['error' => 1,'message' => 'sukses'], 200);  
     }
+
+    public function PembahasanPilihanGanda(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $paket = Paket::find($peserta->paket_id)->first();
+        $idPaket = $peserta->paket_id;
+        $soal = Soal::where('paket_id', $peserta->paket_id)
+                ->where('tipe_soal', 'PILIHANGANDA')
+                ->orderBy('id', 'ASC')
+                ->get();
+        $jawaban = JawabanPilihanGanda::whereIn('soal_id', function($query) use($idPaket){
+            $query->select('id')
+                ->from('soal')
+                ->where('paket_id', $idPaket)
+                ->where('tipe_soal', 'PILIHANGANDA')
+                ->orderBy('id', 'ASC');
+        })->orderBy('soal_id', 'ASC')->get();
+        foreach($soal as $soal){
+            $isi_soal[] = [
+                'id_soal' => $soal->id,
+                'soal' => $soal->soal
+            ];
+        }
+        foreach($jawaban as $jawaban){
+            $isi_jawaban[] = [
+                'id_soal' => $jawaban->soal_id,
+                'pilihanA' => $jawaban->pilihan_a,
+                'pilihanB' => $jawaban->pilihan_b,
+                'pilihanC' => $jawaban->pilihan_c,
+                'pilihanD' => $jawaban->pilihan_d,
+                'jawaban' => $jawaban->jawaban
+            ];
+        }
+        $message = [
+            'soal' => $isi_soal,
+            'jawaban' => $isi_jawaban
+        ];
+        return response()->json(['error' => 1,'message' => $message], 200);  
+    }
+
+    public function PembahasanMencocokan(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $paket = Paket::find($peserta->paket_id)->first();
+        $idPaket = $peserta->paket_id;
+        $soal = Soal::where('paket_id', $peserta->paket_id)
+                ->where('tipe_soal', 'MENCOCOKAN')
+                ->orderBy('id', 'ASC')
+                ->get();
+        $jawaban = JawabanMencocokan::whereIn('soal_id', function($query) use($idPaket){
+            $query->select('id')
+                ->from('soal')
+                ->where('paket_id', $idPaket)
+                ->where('tipe_soal', 'MENCOCOKAN')
+                ->orderBy('id', 'ASC');
+        })->orderBy('soal_id', 'ASC')->get();
+        foreach($soal as $soal){
+            $isi_soal[] = [
+                'id_soal' => $soal->id,
+                'soal' => $soal->soal,
+            ];
+        }
+        foreach($jawaban as $jawaban){
+            $isi_jawaban[] = [
+                'id_soal' => $jawaban->soal_id,
+                'jawaban' => $jawaban->PilihanJawabanMencocokan->pilihan_jawaban
+            ];
+        }
+        $message = [
+            'id' => $paket->id,
+            'tipe' => 'MENCOCOKAN',
+            'paket' => $paket->nama,
+            'soal' => $isi_soal,
+            'jawaban' => $isi_jawaban
+        ];
+        return response()->json(['error' => 1,'message' => $message], 200);  
+    }
+
+    public function PembahasanBenarSalah(Request $request)
+    {
+        $peserta = Peserta::where('token', $request->token)->first();
+        if($peserta == NULL){
+            return response()->json(['error' => 1,'message' => 'token salah'], 200);  
+        }
+        $paket = Paket::find($peserta->paket_id)->first();
+        $idPaket = $peserta->paket_id;
+        $soal = Soal::where('paket_id', $peserta->paket_id)
+                ->where('tipe_soal', 'BENARSALAH')
+                ->orderBy('id', 'ASC')
+                ->get();
+        $jawaban = JawabanBenarSalah::whereIn('soal_id', function($query) use($idPaket){
+            $query->select('id')
+                ->from('soal')
+                ->where('paket_id', $idPaket)
+                ->where('tipe_soal', 'BENARSALAH')
+                ->orderBy('id', 'ASC');
+        })->orderBy('soal_id', 'ASC')->get();
+        foreach($soal as $soal){
+            $isi_soal[] = [
+                'id_soal' => $soal->id,
+                'soal' => $soal->soal
+            ];
+        }
+        foreach($jawaban as $jawaban){
+            $isi_jawaban[] = [
+                'id_soal' => $jawaban->soal_id,
+                'jawaban' => $jawaban->jawaban
+            ];
+        }
+        $message = [
+            'soal' => $isi_soal,
+            'jawaban' => $isi_jawaban
+        ];
+        return response()->json(['error' => 1,'message' => $message], 200);      
+    }
+
 }
