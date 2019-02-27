@@ -74,15 +74,19 @@
               @endif
             </th>
             <th class="c-table__cell">
-              @if($peserta->Nilai == NULL)
+              @if($peserta->nilai == NULL)
                 <a class="c-badge c-badge--small c-badge--danger">Belum Selesai</a>
               @else
-                <a class="c-badge c-badge--small c-badge--info">{{$peserta->Nilai}}</a>
+                <a class="c-badge c-badge--small c-badge--info">{{$peserta->nilai}}</a>
               @endif
             </th>
             <th class="c-table__cell">
               @if($peserta->isRemedial)
-                <a class="c-badge c-badge--small c-badge--info">{{$peserta->nilaiRemedial}}</a>
+                @if($peserta->nilaiRemedial != NULL)
+                  <a class="c-badge c-badge--small c-badge--info">{{$peserta->nilaiRemedial}}</a>
+                @else
+                  <a class="c-badge c-badge--small c-badge--warning">Masih Mengerjakan</a>
+                @endif
               @else
                 <a class="c-badge c-badge--small c-badge--danger">Tidak Remedial</a>
               @endif

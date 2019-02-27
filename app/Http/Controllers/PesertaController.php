@@ -107,7 +107,7 @@ class PesertaController extends Controller
         if($cekPaket == NULL){
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
-        if($cekPaket->isStart == 0){
+        if($cekPaket->isStart == 0 || $cekPaket->paket_id== NULL){
             return response()->json(['error' => -1,'message' => '-'], 200);  
         }
         return response()->json(['error' => 0,'message' => '-'], 200);    
@@ -254,7 +254,7 @@ class PesertaController extends Controller
         }
         $paket = Paket::find($peserta->paket_id);
         if($request->tipe_soal == 'PILIHANGANDA'){
-            if($paket->JawabanPesertaPilihanGanda()->first() == NULL){
+            if($paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first() == NULL){
                 $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => 0]); 
             }
             $temp = $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
@@ -267,7 +267,7 @@ class PesertaController extends Controller
             $nomor = $peserta->soal_terakhir + $paket->jumlah_mencocokan;
         }
         else if($request->tipe_soal == 'BENARSALAH'){
-            if($paket->JawabanPesertaBenarSalah()->first() == NULL){
+            if($paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first() == NULL){
                 $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => 0]); 
             }
             $temp = $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
@@ -309,7 +309,7 @@ class PesertaController extends Controller
         else{
             $peserta->update(['isFinished' => 1, 'nilai' => $nilaiAkhir]);            
         }
-        return response()->json(['error' => 0,'message' => $message], 200);
+        return response()->json(['error' => 3,'message' => $message], 200);
     }
 
     public function Remedial(Request $request)
