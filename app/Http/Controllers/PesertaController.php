@@ -314,10 +314,10 @@ class PesertaController extends Controller
         $nilaiBenarSalah = ($benarBenarSalah / $jumlahBenarSalah) * 100;
         $nilaiAkhir = (($benarPilgan + $benarMencocokan + $benarBenarSalah) / $jumlahSoal) * 100;
         $message = [
-            'nilai_pilgan' => $nilaiPilgan,
-            'nilai_mencocokan' => $nilaiMencocokan,
-            'nilai_benar_salah' => $nilaiBenarSalah,
-            'nilai_akhir' => $nilaiAkhir
+            'nilai_pilgan' => round($nilaiPilgan),
+            'nilai_mencocokan' => round($nilaiMencocokan),
+            'nilai_benar_salah' => round($nilaiBenarSalah),
+            'nilai_akhir' => round($nilaiAkhir)
         ];
         if($peserta->isRemedial == 1){
             $peserta->update(['isFinished' => 1, 'nilaiRemedial' => $nilaiAkhir]);
