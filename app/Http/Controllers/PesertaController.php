@@ -253,26 +253,42 @@ class PesertaController extends Controller
             return response()->json(['error' => 1,'message' => 'token salah'], 200);  
         }
         $paket = Paket::find($peserta->paket_id);
-        if($request->tipe_soal == 'PILIHANGANDA'){
-            if($paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first() == NULL){
-                $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => 0]); 
-            }
+
+        if($paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first() == NULL){
+            $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => 0]); 
+        }
+        if($paket->JawabanPesertaMencocokan()->where('peserta_id', $peserta->id)->first() == NULL){
+            $paket->JawabanPesertaMencocokan()->attach($peserta->id,['jumlahBenar' => 0]); 
+        } 
+        if($paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first() == NULL){
+            $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => 0]); 
+        }
+
+        if($request->tipe_soal == 'PILIHANGANDA' && $request->nilai > 0){
             $temp = $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
             $paket->JawabanPesertaPilihanGanda()->where('peserta_id', $peserta->id)->detach();
             $paket->JawabanPesertaPilihanGanda()->attach($peserta->id,['jumlahBenar' => $temp+1]); 
             $nomor = $peserta->soal_terakhir + 1;
         }
-        else if($request->tipe_soal == 'MENCOCOKAN'){
+        else{
+            $nomor = $peserta->soal_terakhir + 1;
+        }
+
+        if($request->tipe_soal == 'MENCOCOKAN' && $request->nilai > 0){           
             $paket->JawabanPesertaMencocokan()->attach($peserta->id,['jumlahBenar' => $request->nilai]);
             $nomor = $peserta->soal_terakhir + $paket->jumlah_mencocokan;
         }
-        else if($request->tipe_soal == 'BENARSALAH'){
-            if($paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first() == NULL){
-                $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => 0]); 
-            }
+        else{
+            $nomor = $peserta->soal_terakhir + $paket->jumlah_mencocokan;
+        }
+
+        if($request->tipe_soal == 'BENARSALAH' && $request->nilai > 0){
             $temp = $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->first()->pivot->jumlahBenar;
             $paket->JawabanPesertaBenarSalah()->where('peserta_id', $peserta->id)->detach();
             $paket->JawabanPesertaBenarSalah()->attach($peserta->id,['jumlahBenar' => $temp+1]); 
+            $nomor = $peserta->soal_terakhir + 1;
+        }
+        else{
             $nomor = $peserta->soal_terakhir + 1;
         }
         $peserta->update(['soal_terakhir' => $nomor]);
