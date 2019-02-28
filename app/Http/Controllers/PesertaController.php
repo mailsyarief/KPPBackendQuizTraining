@@ -132,9 +132,9 @@ class PesertaController extends Controller
                     'kode_soal' => '-',
                     'gambar_soal' => '-',
                     'isi_soal' => '-',
-                    'waktu' => '-',
-                    'nomor' => '-',
-                    'showJawaban' => '-',
+                    'waktu' => 0,
+                    'nomor' => 0,
+                    'showJawaban' => 0,
                     'pilihanA' => '-',
                     'pilihanB' => '-',
                     'pilihanC' => '-',
@@ -180,10 +180,10 @@ class PesertaController extends Controller
                 $error = 2;
                 $message = [
                     'kode_soal' => '-',
-                    'waktu' => '-',
-                    'isi_soal' => '-',
-                    'opsi_jawaban' => '-',
-                    'kunci_jawaban' => '-',
+                    'waktu' => 0,
+                    'isi_soal' => [],
+                    'opsi_jawaban' => [],
+                    'kunci_jawaban' => [],
                 ];
                 return response()->json(['error' => $error,'message' => $message], 200);
             }
@@ -217,10 +217,10 @@ class PesertaController extends Controller
                 $message = [
                     'kode_soal' => '-',
                     'isi_soal' => '-',
-                    'waktu' => '-',
+                    'waktu' => 0,
                     'nomor' => '-',
-                    'showJawaban' => '-',
-                    'jawaban' => '-'
+                    'showJawaban' => 0,
+                    'jawaban' => 0
                 ];
                 return response()->json(['error' => $error,'message' => $message], 200);
             }
