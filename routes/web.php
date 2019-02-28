@@ -18,9 +18,14 @@ Route::post('logout', ['as' => 'logout','uses' => 'Auth\LoginController@logout']
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index');
-    Route::get('/peserta', 'PesertaController@LihatPeserta');
+    Route::get('/peserta', 'PesertaController@PilihKategoriPeserta');
+    Route::get('/peserta/belumujian', 'PesertaController@BelumUjian');
+    Route::get('/peserta/sedangujian', 'PesertaController@SedangUjian');
+    Route::get('/peserta/selesaiujian', 'PesertaController@KelarUjian');
+
     Route::get('/tentukanpaketpeserta/{id}', 'PesertaController@TentukanPaketPeserta');
     Route::get('/pilihpaketpeserta/{idPeserta}/{idPaket}', 'PesertaController@PilihPaketPeserta');
+
     Route::get('/peserta/{id}', 'PesertaController@DetilPeserta');
     Route::get('/pesertamulai', 'PesertaController@Mulai');
 

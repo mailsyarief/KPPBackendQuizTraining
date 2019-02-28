@@ -29,7 +29,12 @@
     @else
     <div class="col-12">
       <div align="center">
-      <a href="{{ url('pesertamulai/') }}" class="c-btn c-btn--success u-mb-xsmall">Mulai Ujian</a>
+      @if($data['isStart'] == 1)
+        <a href="{{ url('pesertamulai/') }}" class="c-btn c-btn--success u-mb-xsmall">Mulai Ujian</a>
+      @endif
+      @if($data['isCetak'] == 1)
+        <a href="#" class="c-btn c-btn--success u-mb-xsmall">Cetak Laporan</a>
+      @endif
       </div>
       <div class="c-table-responsive@wide">
         <table class="c-table">

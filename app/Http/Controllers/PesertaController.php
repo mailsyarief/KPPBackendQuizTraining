@@ -32,7 +32,6 @@ class PesertaController extends Controller
                 ->update(['isStart' => 1]);
         return Redirect('peserta')->with('pesan_sukses', 'Memulai ujian untuk peserta');
     }
-    
     public function TentukanPaketPeserta($id)
     {
         $peserta = Peserta::find($id);
@@ -43,7 +42,6 @@ class PesertaController extends Controller
         ];
         return view('pilihpaketpeserta')->with(compact('data'));
     }
-
     public function PilihPaketPeserta($idPeserta,$idPaket)
     {
         $paket = Paket::find($idPaket);
@@ -66,7 +64,47 @@ class PesertaController extends Controller
         ];
         return view('detilpeserta')->with(compact('data'));
     }
+    public function PilihKategoriPeserta()
+    {
+        $data = [
+            'title' => 'Kategori Peserta'
+        ];
+        return view('pilihkategoripaket')->with(compact('data'));
+    }
 
+    public function BelumUjian()
+    {
+        $peserta = Peserta::where('isStart', 0)->where('isFinished', 0)->get();
+        $data = [
+            'title' => 'Peserta yang belum mulai ujian',
+            'peserta' => $peserta,
+            'isCetak' => 0,
+            'isStart' => 1
+        ];
+        return view('peserta')->with(compact('data'));
+    }
+    public function SedangUjian()
+    {
+        $peserta = Peserta::where('isStart', 1)->where('isFinished', 0)->get();
+        $data = [
+            'title' => 'Peserta yang sedang ujian',
+            'peserta' => $peserta,
+            'isCetak' => 0,
+            'isStart' => 0
+        ];
+        return view('peserta')->with(compact('data'));
+    }
+    public function KelarUjian()
+    {
+        $peserta = Peserta::where('isStart', 1)->where('isFinished', 1)->get();
+        $data = [
+            'title' => 'Peserta yang sudah selesai ujian',
+            'peserta' => $peserta,
+            'isCetak' => 1,
+            'isStart' => 0
+        ];
+        return view('peserta')->with(compact('data'));
+    }
     public function DaftarPeserta(Request $request)
     {
         $token = md5(uniqid(rand(), true));
